@@ -32,7 +32,7 @@ const Navbar = () => {
                                 </div>
                             </div>
                             {
-                                user && <div><button onClick={doSignOut} className='bg-violet-400 hover:bg-violet-500 text-white px-4 py-2 rounded-lg'>Log Out</button></div>
+                                user && <div><button onClick={doSignOut} className='bg-[#79589f] px-4 py-2 rounded-lg text-white tracking-wide hover:bg-[#8A6AAE]'>Log Out</button></div>
                             }
                         </div>
                     </div>
@@ -45,7 +45,7 @@ const Navbar = () => {
                                 <p className='text-xl font-medium'>{user?.displayName}</p>
                             </div>
                             {
-                                user && <div><button onClick={doSignOut} className='bg-violet-400 hover:bg-violet-500 text-white px-4 py-2 rounded-lg'>Log Out</button></div>
+                                user && <div><button onClick={doSignOut} className='bg-[#79589f] px-4 py-2 rounded-lg text-white tracking-wide hover:bg-[#8A6AAE]'>Log Out</button></div>
                             }
                         </div>
                     </div>
