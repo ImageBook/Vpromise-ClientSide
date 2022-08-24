@@ -69,7 +69,7 @@ const SignUp = () => {
     return (
         <div className='bg h-screen'>
             <div className='flex flex-col items-center justify-center '>
-                <p className='text-3xl lg:text-4xl font-semibold mb-10 mt-16 text-purple-500 text-center'>Welcome to Vpromise!</p>
+                <p className='text-3xl lg:text-4xl font-semibold mb-10 mt-16 text-white text-center'>Welcome to Vpromise!</p>
                 <form onSubmit={handleSubmit(onSubmit)} className='w-11/12 sm:w-[400px] lg:w-[550px] border rounded-lg p-4 md:p-5 lg:p-8 bg-white'>
                     <p className='text-xl lg:text-[22px] tracking-wide mb-6 text-center'>Please Sign Up to Vpromise</p>
                     {/* Name */}
