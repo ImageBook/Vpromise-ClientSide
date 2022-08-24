@@ -9,10 +9,20 @@ const reducers = combineReducers({
     personalPromiseReducer: PersonalDataSlice
 });
 
+const persistConfig = {
+    key: 'root',
+    storage,
+};
+
+const persistedReducer = persistReducer(persistConfig, reducers);
+
 const store = configureStore({
-    reducer: {
-        personalPromiseReducer: PersonalDataSlice
-    }
-})
+    reducer: persistedReducer,
+    devTools: process.env.NODE_ENV !== 'production',
+    middleware: [thunk]
+    // reducer: {
+    //     personalPromiseReducer: PersonalDataSlice
+    // }
+});
 
 export default store;
