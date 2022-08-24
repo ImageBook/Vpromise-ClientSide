@@ -1,28 +1,33 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Navbar from './Shared/Navbar';
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { ReactMediaRecorder } from "react-media-recorder";
+import { personalSenderVideoReducer } from '../App/Features/PersonalPromiseData/SenderVideoSlice';
 
-// const VideoPreview = ({ stream }: { stream: MediaStream | null }) => {
-//     const videoRef = useRef<HTMLVideoElement>(null);
-  
-//     useEffect(() => {
-//       if (videoRef.current && stream) {
-//         videoRef.current.srcObject = stream;
-//       }
-//     }, [stream]);
-//     if (!stream) {
-//       return null;
-//     }
-//     return <video ref={videoRef} width={500} height={500} autoPlay controls />;
-//   };
 
 const PersonalPromiseInfo = () => {
-    const personalData = useSelector((state) => state.personalPromiseReducer.data)
+    const personalData = useSelector((state) => state.personalPromiseReducer.data);
     // console.log(personalData);
     const { title, date, notes } = personalData;
     const [visual, setVisual] = useState('');
+    const navigate = useNavigate();
+
+    const dispatch = useDispatch();
+    const data = {
+        visual : visual
+    }
+    // let warning = false;
+
+    const receiverDetails = () => {
+        if (visual !== '') {
+            dispatch(personalSenderVideoReducer(data));
+            navigate('/receiver-details');
+        }
+        // else {
+        //     warning = true;
+        // }
+    }
 
     return (
         <div>
@@ -45,19 +50,22 @@ const PersonalPromiseInfo = () => {
             </div> */}
             <div className='max-w-[1000px] mx-auto'>
                 <div className='w-11/12 sm:w-5/6 md:w-3/5 mx-auto p-4'>
-                    <div className='flex items-center justify-center mt-16 mb-28'>
+                    <div className='flex items-center justify-center mt-16 mb-10'>
                         <ReactMediaRecorder
                             video
                             render={({ status, startRecording, stopRecording, mediaBlobUrl, error }) => (
                                 <div>
                                     <p className='text-xl font-medium capitalize text-center mb-4'>{status}...</p>
                                     <video className='rounded w-[325px] sm:w-[450px] md:w-[500px] mx-auto' src={mediaBlobUrl} controls autoPlay loop />
-                                    {console.log('video', mediaBlobUrl)}
                                     {mediaBlobUrl && setVisual(mediaBlobUrl)}
                                     <div className='flex flex-col space-y-2 mt-4'>
-                                        <button className='bg-[#79589f] w-[200px] mx-auto px-4 py-2 rounded-lg text-white tracking-wide hover:bg-[#8A6AAE]' onClick={startRecording}>Start Recording</button>
-                                        <button className='bg-[#79589f] w-[200px] mx-auto px-4 py-2 rounded-lg text-white tracking-wide hover:bg-[#8A6AAE]' onClick={stopRecording}>Stop Recording</button>
+                                        <button className='bg-[#3a3737] text-white w-[200px] mx-auto px-4 py-2 rounded-lg hover:bg-black tracking-wide' onClick={startRecording}>Start Recording</button>
+                                        <button className='bg-[#3a3737] text-white w-[200px] mx-auto px-4 py-2 rounded-lg hover:bg-black tracking-wide' onClick={stopRecording}>Stop Recording</button>
                                         <p className='font-medium text-red-500'>{error}</p>
+                                        {/* {
+                                            (!mediaBlobUrl && warning) && 
+                                            <p className='text-center text-red-500 font-medium'>Please record a video</p>
+                                        } */}
                                     </div>
                                 </div>
                             )}
@@ -65,6 +73,10 @@ const PersonalPromiseInfo = () => {
                         </ReactMediaRecorder>
                     </div>
                 </div>
+            </div>
+            <div className='flex flex-col items-center justify-center mb-20'>
+                <p className='text-lg mb-3 md:w-[500px] mx-auto text-center'>Proceed furthur by recording a video and click on the below button</p>
+                <button onClick={receiverDetails} className='bg-[#79589f] px-8 py-2 rounded-lg text-white tracking-wide hover:bg-[#8A6AAE]'>Next</button>
             </div>
             {/* <div>
                 <video src={visual} controls autoplay></video>
