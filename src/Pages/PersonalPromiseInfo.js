@@ -12,12 +12,19 @@ const PersonalPromiseInfo = () => {
     const { title, date, notes } = personalData;
     const [visual, setVisual] = useState('');
     const navigate = useNavigate();
+    // const [recordCheck, setRecordCheck] = useState(false);
+    // const [playCheck, setPlayCheck] = useState(false);
+    // const [downloadCheck, setDownloadCheck] = useState(false);
 
     const dispatch = useDispatch();
     const data = {
-        visual : visual
+        visual: visual
     }
     // let warning = false;
+
+
+
+
 
     const receiverDetails = () => {
         if (visual !== '') {
@@ -28,6 +35,7 @@ const PersonalPromiseInfo = () => {
         //     warning = true;
         // }
     }
+
 
     return (
         <div>

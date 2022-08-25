@@ -12,11 +12,12 @@ const ReceiverDetails = () => {
     const videoData = useSelector((state) => state.personalSenderVideoReducer.data);
     const { visual } = videoData;
     const [user] = useAuthState(auth);
+    const [modal, setModal] = useState(true)
     const [userData, setUserData] = useState({});
     const email = user?.email;
     // console.log(email);
 
-    const { register, formState: { errors }, handleSubmit } = useForm();
+    const { register, formState: { errors }, handleSubmit, reset } = useForm();
 
     useEffect(() => {
         fetch(`http://localhost:5000/user/${email}`)
@@ -32,14 +33,40 @@ const ReceiverDetails = () => {
         const phone = userData.phone;
         // console.log('userData', userData);
         // console.log(data.number, data.message, phone);
+        const promise = {
+            title: title,
+            due_date: date,
+            notes: notes,
+            senderContact: phone,
+            receiverContact: data.number,
+            receiverText: data.message,
+            status: 'pending',
+            senderEmail: email,
+            sentVideo: visual
+        };
+        // post to database
+        fetch('http://localhost:5000/sent-promises', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(promise)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log('data', data);
+                setModal(true);
+                reset();
+            })
+
     }
 
     return (
-        <div>
+        <div className='relative'>
             <Navbar></Navbar>
             {/* <video className='' src={visual} controls autoplay></video> */}
             <p className='text-[22px] lg:text-3xl text-center mb-10 mt-14 px-2'>Provide Receiver Details</p>
-            <div className='max-w-[1000px] mx-auto'>
+            <div className='max-w-[1000px] mx-auto relative'>
                 <div className='w-11/12 sm:w-5/6 md:w-3/5 mx-auto border rounded-lg p-4 bg-gray-100'>
                     <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col items-center justify-center space-y-1'>
                         <div className='flex flex-col items-start mb-1'>
@@ -71,7 +98,26 @@ const ReceiverDetails = () => {
                         <button type='submit' className='bg-[#79589f] px-4 py-2 rounded-lg text-white tracking-wide hover:bg-[#8A6AAE]'>Send Promise</button>
                     </form>
                 </div>
+                {
+                    modal &&
+                    <div data-aos="fade-up"
+                        data-aos-duration="500"
+                        data-aos-offset="200" className=' flex items-center justify-center'>
+                        <div className='absolute top-1/3'>
+                            <div className='flex flex-col items-center justify-center w-11/12 sm:w-full mx-auto rounded bg-[#79589f] px-5 py-3'>
+                                <p className='font-medium text-lg lg:text-xl leading-tight mb-1 mt-3 text-center text-green-500'>Your promise is successfully sent!</p>
+                                <p className='text-lg lg:text-xl mb-3 text-center text-gray-200'>Do you want to see your sent promises?</p>
+                                <div className='flex items-center mb-4 space-x-4'>
+                                    <button className='bg-emerald-500 text-white hover:bg-emerald-600 transition duration-500 ease-in-out px-5 py-1 rounded-lg font-medium text-lg tracking-wide'>Yes</button>
+                                    <button onClick={() => setModal(true)} className='bg-red-500 text-white hover:bg-red-600 transition duration-500 ease-in-out px-3 py-1 rounded-lg font-medium text-lg tracking-wide'>Later</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                }
             </div>
+
         </div>
     );
 };
