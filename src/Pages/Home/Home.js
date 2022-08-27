@@ -11,26 +11,29 @@ import axios from 'axios';
 const Home = () => {
     // const [promiseGiven, setPromiseGiven] = useState(false);
     // const [promiseReceived, setPromiseReceived] = useState(false);
-    const [image, setImage] = useState('');
-    const [url, setUrl] = useState('');
+    // const [image, setImage] = useState('');
+    // const [url, setUrl] = useState('');
     const navigate = useNavigate();
     const goToSentPromises = () => {
         navigate('/sent-promises');
     }   
+    const goToReceivedPromises = () => {
+        navigate('/received-promises');
+    }   
 
-    const uploadImage = () => {
-        // console.log(files[0]);
-        const formData = new FormData();    
-        formData.append('file', image);
-        formData.append("upload_preset", "yfhzkfb5");
+    // const uploadImage = () => {
+    //     // console.log(files[0]);
+    //     const formData = new FormData();    
+    //     formData.append('file', image);
+    //     formData.append("upload_preset", "yfhzkfb5");
 
-        axios.post("https://api.cloudinary.com/v1_1/dtflws28q/video/upload", formData).then((response) => {
-            console.log('url', response.data.secure_url);
-            setUrl(response.data.secure_url);
-        })
+    //     axios.post("https://api.cloudinary.com/v1_1/dtflws28q/video/upload", formData).then((response) => {
+    //         console.log('url', response.data.secure_url);
+    //         setUrl(response.data.secure_url);
+    //     })
 
-    }
-    console.log(url);
+    // }
+    // console.log(url);
 
     return (
         <div className='relative min-h-screen'>
@@ -51,10 +54,10 @@ const Home = () => {
                     </Link>
                 </div>
             </div>
-            <div className='flex items-center justify-center'>
+            {/* <div className='flex items-center justify-center'>
                 <input onChange={(event) => setImage(event.target.files[0])} type="file" />
                 <button onClick={uploadImage}>Upload</button>
-            </div>
+            </div> */}
             <div className='flex items-center justify-center'>
                 <div className='absolute bottom-6'>
                     <div className='flex items-center justify-center space-x-6'>
@@ -65,10 +68,10 @@ const Home = () => {
                             <p onClick={goToSentPromises} className='font-medium text-lg text-[#6e4f91] hover:cursor-pointer'>Promise Given</p>
                         </div>
                         <div className='flex flex-col items-center space-y-2'>
-                            <div className='w-14 h-14 mx-auto rounded-full border border-purple-400 bg-purple-500 hover:bg-white text-white hover:text-purple-500 transtion duration-300 ease-in-out p-3 hover:cursor-pointer'>
+                            <div onClick={goToReceivedPromises} className='w-14 h-14 mx-auto rounded-full border border-purple-400 bg-purple-500 hover:bg-white text-white hover:text-purple-500 transtion duration-300 ease-in-out p-3 hover:cursor-pointer'>
                                 <MdOutlineCallReceived className='w-6 h-6 mx-auto mt-[2px]'></MdOutlineCallReceived>
                             </div>
-                            <p className='font-medium text-lg text-[#6e4f91] hover:cursor-pointer'>Promise Received</p>
+                            <p onClick={goToReceivedPromises} className='font-medium text-lg text-[#6e4f91] hover:cursor-pointer'>Promise Received</p>
                         </div>
                     </div>
                 </div>

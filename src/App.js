@@ -4,6 +4,7 @@ import Home from './Pages/Home/Home';
 import Login from './Pages/Login/Login';
 import PersonalPromise from './Pages/PersonalPromise/PersonalPromise';
 import PersonalPromiseInfo from './Pages/PersonalPromiseInfo';
+import ReceivedPromises from './Pages/ReceivedPromises';
 import ReceiverDetails from './Pages/ReceiverDetails';
 import SentPromises from './Pages/SentPromises';
 import SignUp from './Pages/SignUp/SignUp';
@@ -19,6 +20,7 @@ function App() {
         <Route path='/personal-promise-info' element={<PersonalPromiseInfo></PersonalPromiseInfo>}></Route>
         <Route path='/receiver-details' element={<ReceiverDetails></ReceiverDetails>}></Route>
         <Route path='/sent-promises' element={<SentPromises></SentPromises>}></Route>
+        <Route path='/received-promises' element={<ReceivedPromises></ReceivedPromises>}></Route>
       </Routes>
     </div>
   );

@@ -8,10 +8,10 @@ const SentPromises = () => {
     const [user] = useAuthState(auth);
     const email = user?.email;
     const [promise, setPromise] = useState([]);
-    const { title, due_date, notes, senderContact, receiverContact, receiverText, status, sentVideo } = promise;
+    // const { title, due_date, notes, senderContact, receiverContact, receiverText, status, sentVideo } = promise;
 
     useEffect(() => {
-        fetch(`https://evening-wave-04854.herokuapp.com/sent-promises/${email}`)
+        fetch(`http://localhost:5000/sent-promises/${email}`)
             .then(res => res.json())
             .then(data => {
                 console.log('promise info', data);
@@ -22,12 +22,12 @@ const SentPromises = () => {
     return (
         <div>
             <Navbar></Navbar>
-            <p className='text-[22px] lg:text-3xl text-center mb-10 mt-14 px-2'>Your Sent Promises</p>
+            <p className='text-[22px] lg:text-3xl text-center mb-10 mt-14'>Your Sent Promises</p>
             <div className='max-w-[1000px] mx-auto'>
-                <div className='flex flex-col items-center justify-center gap-5'>
-                {
-                    promise.map(p => <SentPromiseCard key={p._id} ></SentPromiseCard>)
-                }
+                <div className='flex flex-col items-center justify-center gap-5 mb-10'>
+                    {
+                        [...promise].reverse().map(p => <SentPromiseCard key={p._id} p={p} ></SentPromiseCard>)
+                    }
                     {/* <div className='w-11/12 sm:w-5/6 md:w-3/5 mx-auto border rounded-lg p-4 bg-gray-100'>
                         <div className=''>
                             <video className='rounded w-96 mb-3' src={sentVideo} controls></video>
