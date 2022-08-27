@@ -6,6 +6,7 @@ import { async } from '@firebase/util';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../firebase.init';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const ReceiverDetails = () => {
     const personalData = useSelector((state) => state.personalPromiseReducer.data);
@@ -15,8 +16,9 @@ const ReceiverDetails = () => {
     const [user] = useAuthState(auth);
     const [modal, setModal] = useState(false);
     const [userData, setUserData] = useState({});
+    // const [url, setUrl] = useState('');
     const email = user?.email;
-    // console.log(email);
+    // console.log('visual', visual);
 
     const navigate = useNavigate();
     const goToSentPromises = () => {
@@ -37,8 +39,17 @@ const ReceiverDetails = () => {
 
     const onSubmit = async data => {
         const phone = userData.phone;
-        // console.log('userData', userData);
-        // console.log(data.number, data.message, phone);
+        // get form data of video and post to cloudinary
+        // const formData = new FormData();
+        // formData.append('file', visual);
+        // formData.append("upload_preset", "yfhzkfb5");
+
+        // axios.post("https://api.cloudinary.com/v1_1/dtflws28q/video/upload", formData).then((response) => {
+        //     console.log(response);
+        //     console.log('url', response.data.secure_url);
+        //     setUrl(response.data.secure_url);
+        // })
+
         const promise = {
             title: title,
             due_date: date,
