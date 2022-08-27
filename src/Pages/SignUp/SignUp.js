@@ -28,7 +28,7 @@ const SignUp = () => {
             phone: phoneNumber
         };
         console.log('current user', currentUser)
-        fetch(`http://localhost:5000/user/${email}`, {
+        fetch(`https://evening-wave-04854.herokuapp.com/user/${email}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'

@@ -17,17 +17,26 @@ const PersonalPromiseInfo = () => {
     // const [downloadCheck, setDownloadCheck] = useState(false);
 
     const dispatch = useDispatch();
+    // let url;
+    // if(visual !== ''){
+    //     url = URL.createObjectURL(visual);
+    // }
     const data = {
         visual: visual
     }
     // let warning = false;
 
 
-
-
+    function blobToDataURL(blob, callback) {
+        var fileReader = new FileReader();
+        fileReader.onload = function (e) { callback(e.target.result); }
+        fileReader.readAsDataURL(blob);
+    }
 
     const receiverDetails = () => {
         if (visual !== '') {
+            // console.log('video', visual);
+            blobToDataURL(visual);
             dispatch(personalSenderVideoReducer(data));
             navigate('/receiver-details');
         }

@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { async } from '@firebase/util';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../firebase.init';
+import { useNavigate } from 'react-router-dom';
 
 const ReceiverDetails = () => {
     const personalData = useSelector((state) => state.personalPromiseReducer.data);
@@ -12,15 +13,20 @@ const ReceiverDetails = () => {
     const videoData = useSelector((state) => state.personalSenderVideoReducer.data);
     const { visual } = videoData;
     const [user] = useAuthState(auth);
-    const [modal, setModal] = useState(true)
+    const [modal, setModal] = useState(false);
     const [userData, setUserData] = useState({});
     const email = user?.email;
     // console.log(email);
 
+    const navigate = useNavigate();
+    const goToSentPromises = () => {
+        navigate('/sent-promises');
+    }
+
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
 
     useEffect(() => {
-        fetch(`http://localhost:5000/user/${email}`)
+        fetch(`https://evening-wave-04854.herokuapp.com/user/${email}`)
             .then(res => res.json())
             .then(data => {
                 console.log('user info', data);
@@ -40,12 +46,12 @@ const ReceiverDetails = () => {
             senderContact: phone,
             receiverContact: data.number,
             receiverText: data.message,
-            status: 'pending',
+            status: 'Pending',
             senderEmail: email,
             sentVideo: visual
         };
         // post to database
-        fetch('http://localhost:5000/sent-promises', {
+        fetch('https://evening-wave-04854.herokuapp.com/sent-promises', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -108,8 +114,8 @@ const ReceiverDetails = () => {
                                 <p className='font-medium text-lg lg:text-xl leading-tight mb-1 mt-3 text-center text-green-500'>Your promise is successfully sent!</p>
                                 <p className='text-lg lg:text-xl mb-3 text-center text-gray-200'>Do you want to see your sent promises?</p>
                                 <div className='flex items-center mb-4 space-x-4'>
-                                    <button className='bg-emerald-500 text-white hover:bg-emerald-600 transition duration-500 ease-in-out px-5 py-1 rounded-lg font-medium text-lg tracking-wide'>Yes</button>
-                                    <button onClick={() => setModal(true)} className='bg-red-500 text-white hover:bg-red-600 transition duration-500 ease-in-out px-3 py-1 rounded-lg font-medium text-lg tracking-wide'>Later</button>
+                                    <button onClick={goToSentPromises} className='bg-emerald-500 text-white hover:bg-emerald-600 transition duration-500 ease-in-out px-5 py-1 rounded-lg font-medium text-lg tracking-wide'>Yes</button>
+                                    <button onClick={() => setModal(false)} className='bg-red-500 text-white hover:bg-red-600 transition duration-500 ease-in-out px-3 py-1 rounded-lg font-medium text-lg tracking-wide'>Later</button>
                                 </div>
                             </div>
                         </div>

@@ -1,15 +1,36 @@
 import React, { useState } from 'react';
 import Navbar from '../Shared/Navbar';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { MdPersonalInjury } from 'react-icons/md';
 import { FcAcceptDatabase } from 'react-icons/fc';
 import { GiReceiveMoney } from 'react-icons/gi';
 import { FiSend } from 'react-icons/fi';
 import { MdOutlineCallReceived } from 'react-icons/md';
+import axios from 'axios';
 
 const Home = () => {
     // const [promiseGiven, setPromiseGiven] = useState(false);
     // const [promiseReceived, setPromiseReceived] = useState(false);
+    const [image, setImage] = useState('');
+    const [url, setUrl] = useState('');
+    const navigate = useNavigate();
+    const goToSentPromises = () => {
+        navigate('/sent-promises');
+    }   
+
+    const uploadImage = () => {
+        // console.log(files[0]);
+        const formData = new FormData();    
+        formData.append('file', image);
+        formData.append("upload_preset", "yfhzkfb5");
+
+        axios.post("https://api.cloudinary.com/v1_1/dtflws28q/video/upload", formData).then((response) => {
+            console.log('url', response.data.secure_url);
+            setUrl(response.data.secure_url);
+        })
+
+    }
+    console.log(url);
 
     return (
         <div className='relative min-h-screen'>
@@ -31,13 +52,17 @@ const Home = () => {
                 </div>
             </div>
             <div className='flex items-center justify-center'>
+                <input onChange={(event) => setImage(event.target.files[0])} type="file" />
+                <button onClick={uploadImage}>Upload</button>
+            </div>
+            <div className='flex items-center justify-center'>
                 <div className='absolute bottom-6'>
                     <div className='flex items-center justify-center space-x-6'>
                         <div className='flex flex-col items-center space-y-2'>
-                            <div className='w-14 h-14 mx-auto rounded-full border border-purple-400 bg-purple-500 hover:bg-white text-white hover:text-purple-500 transtion duration-300 ease-in-out p-3 hover:cursor-pointer'>
+                            <div onClick={goToSentPromises} className='w-14 h-14 mx-auto rounded-full border border-purple-400 bg-purple-500 hover:bg-white text-white hover:text-purple-500 transtion duration-300 ease-in-out p-3 hover:cursor-pointer'>
                                 <FiSend className='w-6 h-6 mx-auto mt-[2px] ml-[2px]'></FiSend>
                             </div>
-                            <p className='font-medium text-lg text-[#6e4f91] hover:cursor-pointer'>Promise Given</p>
+                            <p onClick={goToSentPromises} className='font-medium text-lg text-[#6e4f91] hover:cursor-pointer'>Promise Given</p>
                         </div>
                         <div className='flex flex-col items-center space-y-2'>
                             <div className='w-14 h-14 mx-auto rounded-full border border-purple-400 bg-purple-500 hover:bg-white text-white hover:text-purple-500 transtion duration-300 ease-in-out p-3 hover:cursor-pointer'>
