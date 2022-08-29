@@ -63,13 +63,13 @@ const PersonalPromiseInfo = () => {
         // console.log('formData', formData);
         const response = await fetch(visual).then(response => response.blob())
 
-        const arifsFile = new File(
-            [response], 'arippa.mp4', { type: 'video/webm' }
+        const myFile = new File(
+            [response], 'visual.mp4', { type: 'video/webm' }
         )
 
-        const blob = new Blob([visual], { type: "video/mp4" });
-        console.log(arifsFile);
-        formData.append('file', arifsFile);
+        // const blob = new Blob([visual], { type: "video/mp4" });
+        console.log(myFile);
+        formData.append('file', myFile);
         formData.append("upload_preset", "yfhzkfb5");
 
 

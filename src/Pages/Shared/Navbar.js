@@ -1,13 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { FaUserCircle } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
-import { signOut } from 'firebase/auth';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
 import auth from '../../firebase.init';
 
 const Navbar = () => {
-    const [user] = useAuthState(auth);
+    // const [user] = useAuthState(auth);
     const navigate = useNavigate();
+    const [userInfo, setUserInfo] = useState({});
+    const { name } = userInfo;
+    const [phone, setPhone] = useState('');
+    const [check, setCheck] = useState(false)
+
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            setPhone(user.phoneNumber);
+            setCheck(true);
+        } else {
+            navigate('/');
+        }
+    });
+
+    useEffect(() => {
+        fetch(`http://localhost:5000/user/${phone}`)
+            .then(res => res.json())
+            .then(data => setUserInfo(data))
+    }, [phone]);
+
     const doSignOut = () => {
         signOut(auth);
         navigate('/');
@@ -28,11 +48,11 @@ const Navbar = () => {
                             <div className='flex flex-col items-end'>
                                 <div className='flex items-center space-x-2'>
                                     <FaUserCircle className="w-8 h-8 text-[#8A6AAE] hover:text-[#835caf]"></FaUserCircle>
-                                    <p className='text-xl font-medium'>{user?.displayName}</p>
+                                    <p className='text-xl font-medium'>{name}</p>
                                 </div>
                             </div>
                             {
-                                user && <div><button onClick={doSignOut} className='bg-[#79589f] px-4 py-2 rounded-lg text-white tracking-wide hover:bg-[#8A6AAE]'>Log Out</button></div>
+                                check && <div><button onClick={doSignOut} className='bg-[#79589f] px-4 py-2 rounded-lg text-white tracking-wide hover:bg-[#8A6AAE]'>Log Out</button></div>
                             }
                         </div>
                     </div>
@@ -42,10 +62,10 @@ const Navbar = () => {
                         <div className='flex items-center justify-around'>
                             <div className='flex items-center space-x-2'>
                                 <FaUserCircle className="w-8 h-8 text-[#8A6AAE] hover:text-[#835caf]"></FaUserCircle>
-                                <p className='text-xl font-medium'>{user?.displayName}</p>
+                                <p className='text-xl font-medium'>{name}</p>
                             </div>
                             {
-                                user && <div><button onClick={doSignOut} className='bg-[#79589f] px-4 py-2 rounded-lg text-white tracking-wide hover:bg-[#8A6AAE]'>Log Out</button></div>
+                                check && <div><button onClick={doSignOut} className='bg-[#79589f] px-4 py-2 rounded-lg text-white tracking-wide hover:bg-[#8A6AAE]'>Log Out</button></div>
                             }
                         </div>
                     </div>

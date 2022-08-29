@@ -7,15 +7,27 @@ import { GiReceiveMoney } from 'react-icons/gi';
 import { FiSend } from 'react-icons/fi';
 import { MdOutlineCallReceived } from 'react-icons/md';
 import axios from 'axios';
+import auth from '../../firebase.init';
+import { onAuthStateChanged } from 'firebase/auth';
 
 const Home = () => {
     const navigate = useNavigate();
+    const [name, setName] = useState('');
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            // console.log('user', user);
+            setName(user.phoneNumber);
+        } else {
+            navigate('/');
+        }
+    });
+
     const goToSentPromises = () => {
         navigate('/sent-promises');
-    }   
+    }
     const goToReceivedPromises = () => {
         navigate('/received-promises/pending');
-    }   
+    }
 
     return (
         <div className='relative min-h-screen'>

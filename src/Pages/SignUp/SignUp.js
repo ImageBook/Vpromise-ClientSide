@@ -26,35 +26,37 @@ const SignUp = () => {
     const [confirmObj, setConfirmObj] = useState('');
     const [flag, setFlag] = useState(false);
     const [otp, setOtp] = useState('');
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
 
-    
+
     const dispatch = useDispatch();
 
 
-    useEffect(() => {
-        // console.log('user', user);
-        const email = user?.user?.email;
-        const name = user?.user?.displayName;
-        // console.log('email', email);
-        // console.log('name', name);
-        const currentUser = {
-            email: email,
-            name: name,
-            phone: phoneNumber
-        };
-        console.log('current user', currentUser)
-        fetch(`https://evening-wave-04854.herokuapp.com/user/${email}`, {
-            method: 'PUT',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(currentUser)
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log('login data', data);
-            })
-    }, [user?.user?.email, phoneNumber, user]);
+    // useEffect(() => {
+    //     // console.log('user', user);
+    //     const email = user?.user?.email;
+    //     const name = user?.user?.displayName;
+    //     // console.log('email', email);
+    //     // console.log('name', name);
+    //     const currentUser = {
+    //         email: email,
+    //         name: name,
+    //         phone: phoneNumber
+    //     };
+    //     console.log('current user', currentUser)
+    //     fetch(`https://evening-wave-04854.herokuapp.com/user/${email}`, {
+    //         method: 'PUT',
+    //         headers: {
+    //             'content-type': 'application/json'
+    //         },
+    //         body: JSON.stringify(currentUser)
+    //     })
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             console.log('login data', data);
+    //         })
+    // }, [user?.user?.email, phoneNumber, user]);
 
     const navigate = useNavigate();
 
@@ -85,11 +87,29 @@ const SignUp = () => {
     const handleVerify = async (e) => {
         e.preventDefault();
         await confirmObj.confirm(parseInt(otp));
+        const currentUser = {
+            email: email,
+            name: name,
+            phone: number
+        };
+        fetch(`http://localhost:5000/user`, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(currentUser)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log('login data', data);
+            })
         navigate('/home');
     }
 
     const onSubmit = async data => {
         // setPhoneNumber(data.number);
+        setName(data.name);
+        setEmail(data.email);
         const response = await setUpRecaptcha(number);
         setConfirmObj(response);
         setFlag(true);
