@@ -2,10 +2,28 @@ import React, { useEffect, useRef, useState } from 'react';
 import Navbar from './Shared/Navbar';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { ReactMediaRecorder } from "react-media-recorder";
+import { ReactMediaRecorder, useReactMediaRecorder } from "react-media-recorder";
 import { personalSenderVideoReducer } from '../App/Features/PersonalPromiseData/SenderVideoSlice';
 import axios from 'axios';
 
+
+const VideoPreview = ({
+    stream,
+    width = 300,
+    status
+}) => {
+    const videoRef = useRef(null);
+
+    useEffect(() => {
+        if (videoRef.current && stream) {
+            videoRef.current.srcObject = stream;
+        }
+    }, [stream]);
+    console.log("stream -->", stream);
+    return !stream ? null : (
+        <video className={`${status} w-full`} ref={videoRef} width={width} autoPlay />
+    );
+};
 
 const PersonalPromiseInfo = () => {
     const personalData = useSelector((state) => state.personalPromiseReducer.data);
@@ -23,16 +41,35 @@ const PersonalPromiseInfo = () => {
     // console.log(visual)
     // const blob = new Blob(visual);
 
+    const {
+        status,
+        startRecording,
+        stopRecording,
+        mediaBlobUrl
+    } = useReactMediaRecorder({ video: true });
+    const [blobUrls, setBlobUrls] = useState([]);
 
-    // const [visual, setVisual] = useState('');
+    const canShowRecording = mediaBlobUrl && status !== "recording";
 
-    const receiverDetails = () => {
+
+    const [visual, setVisual] = useState('');
+    console.log('visual', visual);
+
+    const receiverDetails = async () => {
         const formData = new FormData();
-        formData.append('file', video);
-        // console.log('visual', visual);
+        // formData.append('file', video);
+
         // formData.append('foo', 'video.mp4');
         // console.log('formData', formData);
-        // formData.append('file', visual);
+        const response = await fetch(visual).then(response => response.blob())
+
+        const arifsFile = new File(
+            [response], 'arippa.mp4', { type: 'video/webm' }
+        )
+
+        const blob = new Blob([visual], { type: "video/mp4" });
+        console.log(arifsFile);
+        formData.append('file', arifsFile);
         formData.append("upload_preset", "yfhzkfb5");
 
 
@@ -71,15 +108,24 @@ const PersonalPromiseInfo = () => {
             {/* <div className='flex items-center justify-center mt-16 mb-28'>
                 <button className='bg-[#79589f] px-8 py-2 rounded-lg text-white tracking-wide hover:bg-[#8A6AAE]'>Click to Record Video</button>
             </div> */}
-            {/* <div className='max-w-[1000px] mx-auto'>
+            <div className='max-w-[1000px] mx-auto'>
                 <div className='w-11/12 sm:w-5/6 md:w-3/5 mx-auto p-4'>
                     <div className='flex items-center justify-center mt-16 mb-10'>
+                        {/* <div>
+                            <ReactMediaRecorder
+                                video
+                                render={({ previewStream }) => (
+                                    <VideoPreview stream={previewStream} status={status} />
+                                )}
+                            />
+                        </div> */}
                         <ReactMediaRecorder
                             video
-                            render={({ status, startRecording, stopRecording, mediaBlobUrl, error }) => (
+                            render={({ status, previewStream, startRecording, stopRecording, mediaBlobUrl, error }) => (
                                 <div>
                                     <p className='text-xl font-medium capitalize text-center mb-4'>{status}...</p>
-                                    <video className='rounded w-[325px] sm:w-[450px] md:w-[500px] mx-auto' src={mediaBlobUrl} controls autoPlay loop />
+                                    <VideoPreview stream={previewStream} status={status} />
+                                    <video className='rounded w-[325px] sm:w-[450px] md:w-[500px] mx-auto' src={mediaBlobUrl} controls loop />
                                     {setVisual(mediaBlobUrl)}
                                     <div className='flex flex-col space-y-2 mt-4'>
                                         <button className='bg-[#3a3737] text-white w-[200px] mx-auto px-4 py-2 rounded-lg hover:bg-black tracking-wide' onClick={startRecording}>Start Recording</button>
@@ -96,8 +142,8 @@ const PersonalPromiseInfo = () => {
             <div className='flex flex-col items-center justify-center mb-20'>
                 <p className='text-lg mb-3 md:w-[500px] mx-auto text-center'>Proceed furthur by recording a video and click on the below button</p>
                 <button onClick={receiverDetails} className='bg-[#79589f] px-8 py-2 rounded-lg text-white tracking-wide hover:bg-[#8A6AAE]'>Next</button>
-            </div> */}
-            <div className='max-w-[1000px] mx-auto'>
+            </div>
+            {/* <div className='max-w-[1000px] mx-auto'>
                 <div className=' '>
                     <form onSubmit={receiverDetails} className='w-11/12 sm:w-5/6 md:w-3/5 mx-auto p-4 flex flex-col items-start justify-center mt-10 mb-10 bg-gray-100 rounded-lg'>
                         <p className='text-lg mb-2'>Upload your promise video</p>
@@ -105,7 +151,7 @@ const PersonalPromiseInfo = () => {
                         <button type='submit' className='bg-[#79589f] px-8 py-2 rounded-lg text-white tracking-wide hover:bg-[#8A6AAE] mt-4'>Next</button>
                     </form>
                 </div>
-            </div>
+            </div> */}
 
         </div>
     );
