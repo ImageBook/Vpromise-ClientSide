@@ -11,21 +11,30 @@ const PersonalPromiseInfo = () => {
     const personalData = useSelector((state) => state.personalPromiseReducer.data);
     // console.log(personalData);
     const { title, date, notes } = personalData;
-    // const [visual, setVisual] = useState('');
+    // const visual = [];
     const [video, setVideo] = useState('');
-    const [url, setUrl] = useState("");
+    // const [url, setUrl] = useState("");
     const navigate = useNavigate();
     // const [recordCheck, setRecordCheck] = useState(false);
     // const [playCheck, setPlayCheck] = useState(false);
     // const [downloadCheck, setDownloadCheck] = useState(false);
 
     const dispatch = useDispatch();
+    // console.log(visual)
+    // const blob = new Blob(visual);
 
+
+    // const [visual, setVisual] = useState('');
 
     const receiverDetails = () => {
         const formData = new FormData();
         formData.append('file', video);
+        // console.log('visual', visual);
+        // formData.append('foo', 'video.mp4');
+        // console.log('formData', formData);
+        // formData.append('file', visual);
         formData.append("upload_preset", "yfhzkfb5");
+
 
         axios.post("https://api.cloudinary.com/v1_1/dtflws28q/video/upload", formData).then((response) => {
             console.log('url', response.data.secure_url);
@@ -61,6 +70,32 @@ const PersonalPromiseInfo = () => {
             </div>
             {/* <div className='flex items-center justify-center mt-16 mb-28'>
                 <button className='bg-[#79589f] px-8 py-2 rounded-lg text-white tracking-wide hover:bg-[#8A6AAE]'>Click to Record Video</button>
+            </div> */}
+            {/* <div className='max-w-[1000px] mx-auto'>
+                <div className='w-11/12 sm:w-5/6 md:w-3/5 mx-auto p-4'>
+                    <div className='flex items-center justify-center mt-16 mb-10'>
+                        <ReactMediaRecorder
+                            video
+                            render={({ status, startRecording, stopRecording, mediaBlobUrl, error }) => (
+                                <div>
+                                    <p className='text-xl font-medium capitalize text-center mb-4'>{status}...</p>
+                                    <video className='rounded w-[325px] sm:w-[450px] md:w-[500px] mx-auto' src={mediaBlobUrl} controls autoPlay loop />
+                                    {setVisual(mediaBlobUrl)}
+                                    <div className='flex flex-col space-y-2 mt-4'>
+                                        <button className='bg-[#3a3737] text-white w-[200px] mx-auto px-4 py-2 rounded-lg hover:bg-black tracking-wide' onClick={startRecording}>Start Recording</button>
+                                        <button className='bg-[#3a3737] text-white w-[200px] mx-auto px-4 py-2 rounded-lg hover:bg-black tracking-wide' onClick={stopRecording}>Stop Recording</button>
+                                        <p className='font-medium text-red-500'>{error}</p>
+                                    </div>
+                                </div>
+                            )}
+                        >
+                        </ReactMediaRecorder>
+                    </div>
+                </div>
+            </div>
+            <div className='flex flex-col items-center justify-center mb-20'>
+                <p className='text-lg mb-3 md:w-[500px] mx-auto text-center'>Proceed furthur by recording a video and click on the below button</p>
+                <button onClick={receiverDetails} className='bg-[#79589f] px-8 py-2 rounded-lg text-white tracking-wide hover:bg-[#8A6AAE]'>Next</button>
             </div> */}
             <div className='max-w-[1000px] mx-auto'>
                 <div className=' '>

@@ -5,7 +5,7 @@ import auth from '../firebase.init';
 import ReceivedPromisesCard from './components/ReceivedPromisesCard';
 import Navbar from './Shared/Navbar';
 
-const ReceivedPromises = () => {
+const ReceivedPromiseRejected = () => {
     const [promises, setPromises] = useState([]);
     const [userData, setUserData] = useState({});
     const [user] = useAuthState(auth);
@@ -21,7 +21,7 @@ const ReceivedPromises = () => {
     }, [email]);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/received-promises/${phone}`)
+        fetch(`http://localhost:5000/received-rejected-promises/${phone}`)
             .then(res => res.json())
             .then(data => {
                 console.log('promise info', data);
@@ -36,19 +36,19 @@ const ReceivedPromises = () => {
             <div className='max-w-[1000px] mx-auto'>
                 <div className='w-11/12 sm:w-5/6 md:w-3/5 mx-auto'>
                     <div className='flex items-center justify-around mb-6'>
-                        <Link to='/received-promises/pending' className='text-lg font-medium text-sky-500'>Pending</Link>
-                        <Link to='/received-promises/accepted' className='text-lg font-medium'>Accepted</Link>
-                        <Link to='/received-promises/rejected' className='text-lg font-medium'>Rejected</Link>
+                        <Link to='/received-promises/pending' className='text-lg font-medium'>Pending</Link>
+                        <Link to='/received-promises/accepted' className='text-lg font-medium '>Accepted</Link>
+                        <Link to='/received-promises/rejected' className='text-lg font-medium text-sky-500'>Rejected</Link>
                     </div>
                 </div>
             </div>
             <div className='max-w-[1000px] mx-auto'>
-                <div className='flex flex-col items-center justify-center gap-8 mb-10'>
-                    {
-                        promises.length === 0 && <p>You don't have any pending promises</p>
-                    }
+                <div className='flex flex-col items-center justify-center gap-5 mb-10'>
                     {
                         [...promises].reverse().map(promise => <ReceivedPromisesCard key={promise._id} promise={promise} ></ReceivedPromisesCard>)
+                    }
+                    {
+                        promises.length === 0 && <p>You don't have any rejected promises</p>
                     }
                 </div>
             </div>
@@ -56,4 +56,4 @@ const ReceivedPromises = () => {
     );
 };
 
-export default ReceivedPromises;
+export default ReceivedPromiseRejected;

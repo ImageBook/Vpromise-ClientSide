@@ -8,6 +8,11 @@ import ReceivedPromises from './Pages/ReceivedPromises';
 import ReceiverDetails from './Pages/ReceiverDetails';
 import SentPromises from './Pages/SentPromises';
 import SignUp from './Pages/SignUp/SignUp';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import ReceivedPromiseAccepted from './Pages/ReceivedPromiseAccepted';
+import ReceivedPromiseRejected from './Pages/ReceivedPromiseRejected';
+import OtpPage from './Pages/OtpPage';
 
 function App() {
   return (
@@ -15,13 +20,17 @@ function App() {
       <Routes>
         <Route path='/' element={<Login></Login>}></Route>
         <Route path='/signup' element={<SignUp></SignUp>}></Route>
+        <Route path='/verify' element={<OtpPage></OtpPage>}></Route>
         <Route path='/home' element={<Home></Home>}></Route>
         <Route path='/personal-promise' element={<PersonalPromise></PersonalPromise>}></Route>
         <Route path='/personal-promise-info' element={<PersonalPromiseInfo></PersonalPromiseInfo>}></Route>
         <Route path='/receiver-details' element={<ReceiverDetails></ReceiverDetails>}></Route>
         <Route path='/sent-promises' element={<SentPromises></SentPromises>}></Route>
-        <Route path='/received-promises' element={<ReceivedPromises></ReceivedPromises>}></Route>
+        <Route path='/received-promises/pending' element={<ReceivedPromises></ReceivedPromises>}></Route>
+        <Route path='/received-promises/accepted' element={<ReceivedPromiseAccepted></ReceivedPromiseAccepted>}></Route>
+        <Route path='/received-promises/rejected' element={<ReceivedPromiseRejected></ReceivedPromiseRejected>}></Route>
       </Routes>
+      <ToastContainer></ToastContainer>
     </div>
   );
 }

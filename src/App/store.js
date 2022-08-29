@@ -5,10 +5,14 @@ import { combineReducers } from 'redux';
 import { persistReducer } from 'redux-persist';
 import thunk from 'redux-thunk';
 import SenderVideoSlice from "./Features/PersonalPromiseData/SenderVideoSlice";
+import ReceiverVideoSlice from "./Features/PersonalPromiseData/ReceiverVideoSlice";
+import OtpResponseSlice from "./Features/PersonalPromiseData/OtpResponseSlice";
 
 const reducers = combineReducers({
     personalPromiseReducer: PersonalDataSlice,
-    personalSenderVideoReducer: SenderVideoSlice
+    personalSenderVideoReducer: SenderVideoSlice,
+    personalReceiverVideoReducer: ReceiverVideoSlice,
+    signInOtpReducer: OtpResponseSlice
 });
 
 const persistConfig = {
