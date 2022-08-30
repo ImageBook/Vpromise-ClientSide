@@ -66,7 +66,7 @@ const Login = () => {
         const user = {
             phone: number
         }
-        fetch(`http://localhost:5000/user/${number}`, {
+        fetch(`https://evening-wave-04854.herokuapp.com/user/${number}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'
