@@ -13,6 +13,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import ReceivedPromiseAccepted from './Pages/ReceivedPromiseAccepted';
 import ReceivedPromiseRejected from './Pages/ReceivedPromiseRejected';
 import OtpPage from './Pages/OtpPage';
+import UpdateProfile from './Pages/UpdateProfile';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path='/signup' element={<SignUp></SignUp>}></Route>
         <Route path='/verify' element={<OtpPage></OtpPage>}></Route>
         <Route path='/home' element={<Home></Home>}></Route>
+        <Route path='/update-profile' element={<UpdateProfile></UpdateProfile>}></Route>
         <Route path='/personal-promise' element={<PersonalPromise></PersonalPromise>}></Route>
         <Route path='/personal-promise-info' element={<PersonalPromiseInfo></PersonalPromiseInfo>}></Route>
         <Route path='/receiver-details' element={<ReceiverDetails></ReceiverDetails>}></Route>
