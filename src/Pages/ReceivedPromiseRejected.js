@@ -45,7 +45,7 @@ const ReceivedPromiseRejected = () => {
                 </div>
             </div>
             <div className='max-w-[1000px] mx-auto'>
-                <div className='flex flex-col items-center justify-center gap-5 mb-10'>
+                <div className='flex flex-col items-center justify-center gap-y-14 mb-10'>
                     {
                         [...promises].reverse().map(promise => <ReceivedPromisesCard key={promise._id} promise={promise} ></ReceivedPromisesCard>)
                     }

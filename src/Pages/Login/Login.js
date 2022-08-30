@@ -63,6 +63,20 @@ const Login = () => {
     const handleVerify = async (e) => {
         e.preventDefault();
         await confirmObj.confirm(parseInt(otp));
+        const user = {
+            phone: number
+        }
+        fetch(`http://localhost:5000/user/${number}`, {
+            method: 'PUT',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log('login data', data);
+            })
         navigate('/home');
     }
 
