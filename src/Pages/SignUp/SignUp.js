@@ -92,7 +92,7 @@ const SignUp = () => {
             name: name,
             phone: number
         };
-        fetch(`http://localhost:5000/user`, {
+        fetch(`https://evening-wave-04854.herokuapp.com/user`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

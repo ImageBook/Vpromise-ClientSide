@@ -22,7 +22,7 @@ const UpdateProfile = () => {
     }, []);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/user/${phone}`)
+        fetch(`https://evening-wave-04854.herokuapp.com/user/${phone}`)
             .then(res => res.json())
             .then(data => {
                 setUserData(data);
@@ -30,7 +30,7 @@ const UpdateProfile = () => {
     }, [phone]);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/sent-promises/${phone}`)
+        fetch(`https://evening-wave-04854.herokuapp.com/sent-promises/${phone}`)
             .then(res => res.json())
             .then(data => {
                 console.log('promise info', data);
@@ -39,7 +39,7 @@ const UpdateProfile = () => {
     }, [phone]);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/received-promise/${phone}`)
+        fetch(`https://evening-wave-04854.herokuapp.com/received-promise/${phone}`)
             .then(res => res.json())
             .then(data => {
                 console.log('promise info', data);
@@ -55,7 +55,7 @@ const UpdateProfile = () => {
             name: usernName,
             email: UserEmail
         };
-        fetch(`http://localhost:5000/user/${phone}`, {
+        fetch(`https://evening-wave-04854.herokuapp.com/user/${phone}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json'

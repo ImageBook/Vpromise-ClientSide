@@ -50,7 +50,7 @@ const ReceiverDetails2 = () => {
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
 
     useEffect(() => {
-        fetch(`http://localhost:5000/user/${phone}`)
+        fetch(`https://evening-wave-04854.herokuapp.com/user/${phone}`)
             .then(res => res.json())
             .then(data => {
                 console.log('user info', data);
@@ -74,7 +74,7 @@ const ReceiverDetails2 = () => {
             sentVideo: visual
         };
         // post to database
-        fetch('http://localhost:5000/sent-promises', {
+        fetch('https://evening-wave-04854.herokuapp.com/sent-promises', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

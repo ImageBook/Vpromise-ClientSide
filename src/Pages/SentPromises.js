@@ -22,7 +22,7 @@ const SentPromises = () => {
     }, []);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/sent-promises/${phone}`)
+        fetch(`https://evening-wave-04854.herokuapp.com/sent-promises/${phone}`)
             .then(res => res.json())
             .then(data => {
                 console.log('promise info', data);

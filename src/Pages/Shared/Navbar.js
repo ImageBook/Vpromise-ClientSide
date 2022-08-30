@@ -25,7 +25,7 @@ const Navbar = () => {
     }, [])
 
     useEffect(() => {
-        fetch(`http://localhost:5000/user/${phone}`)
+        fetch(`https://evening-wave-04854.herokuapp.com/user/${phone}`)
             .then(res => res.json())
             .then(data => setUserInfo(data))
     }, [phone]);

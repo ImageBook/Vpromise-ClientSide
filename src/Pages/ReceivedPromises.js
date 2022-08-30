@@ -27,7 +27,7 @@ const ReceivedPromises = () => {
 
 
     useEffect(() => {
-        fetch(`http://localhost:5000/received-promises/${phone}`)
+        fetch(`https://evening-wave-04854.herokuapp.com/received-promises/${phone}`)
             .then(res => res.json())
             .then(data => {
                 console.log('promise info', data);

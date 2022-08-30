@@ -54,7 +54,7 @@ const ReceivedPromisesCard = ({ promise }) => {
                         receiverVideo: response.data.secure_url
                     };
 
-                    fetch(`http://localhost:5000/sent-promises/${_id}`, {
+                    fetch(`https://evening-wave-04854.herokuapp.com/sent-promises/${_id}`, {
                         method: 'PATCH',
                         headers: {
                             'content-type': 'application/json'
@@ -79,7 +79,7 @@ const ReceivedPromisesCard = ({ promise }) => {
             status: 'Rejected',
         };
 
-        fetch(`http://localhost:5000/sent-promises/${_id}`, {
+        fetch(`https://evening-wave-04854.herokuapp.com/sent-promises/${_id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json'
