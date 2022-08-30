@@ -125,11 +125,17 @@ const ReceivedPromisesCard = ({ promise }) => {
                                 <div>
                                     <p className='text-xl font-medium capitalize text-center mb-4'>{status}...</p>
                                     <VideoPreview stream={previewStream} status={status} />
-                                    <video className='rounded w-[325px] sm:w-[450px] md:w-[500px] mx-auto mt-4' src={mediaBlobUrl} controls loop />
+                                    <video className='rounded w-[325px] sm:w-[450px] md:w-[500px] mx-auto mt-4' src={mediaBlobUrl} controls loop autoplay />
                                     {setVisual(mediaBlobUrl)}
                                     <div className='flex flex-col space-y-2 mt-4'>
-                                        <button className='bg-[#3a3737] text-white w-[200px] mx-auto px-4 py-2 rounded-lg hover:bg-black tracking-wide' onClick={startRecording}>Start Recording</button>
-                                        <button className='bg-[#3a3737] text-white w-[200px] mx-auto px-4 py-2 rounded-lg hover:bg-black tracking-wide' onClick={stopRecording}>Stop Recording</button>
+                                        {
+                                            (status.toString() === "stopped" || status.toString() === "idle") &&
+                                            <button className='bg-[#3a3737] text-white w-[200px] mx-auto px-4 py-2 rounded-lg hover:bg-black tracking-wide' onClick={startRecording}>Start Recording</button>
+                                        }
+                                        {
+                                            (status.toString() === "recording") &&
+                                            <button className='bg-[#3a3737] text-white w-[200px] mx-auto px-4 py-2 rounded-lg hover:bg-black tracking-wide' onClick={stopRecording}>Stop Recording</button>
+                                        }
                                         <p className='font-medium text-red-500'>{error}</p>
                                     </div>
                                 </div>

@@ -27,33 +27,16 @@ const VideoPreview = ({
 
 const PersonalPromiseInfo = () => {
     const personalData = useSelector((state) => state.personalPromiseReducer.data);
-    // console.log(personalData);
     const { title, date, notes } = personalData;
-    // const visual = [];
-    const [video, setVideo] = useState('');
-    // const [url, setUrl] = useState("");
     const navigate = useNavigate();
-    // const [recordCheck, setRecordCheck] = useState(false);
-    // const [playCheck, setPlayCheck] = useState(false);
-    // const [downloadCheck, setDownloadCheck] = useState(false);
 
     const dispatch = useDispatch();
-    // console.log(visual)
-    // const blob = new Blob(visual);
-
-    const {
-        status,
-        startRecording,
-        stopRecording,
-        mediaBlobUrl
-    } = useReactMediaRecorder({ video: true });
-    const [blobUrls, setBlobUrls] = useState([]);
-
-    const canShowRecording = mediaBlobUrl && status !== "recording";
 
 
     const [visual, setVisual] = useState('');
     console.log('visual', visual);
+
+    const [recording, setRecording] = useState(false);
 
     const receiverDetails = async () => {
         const formData = new FormData();
@@ -68,7 +51,7 @@ const PersonalPromiseInfo = () => {
         )
 
         // const blob = new Blob([visual], { type: "video/mp4" });
-        console.log(myFile);
+        // console.log(myFile);
         formData.append('file', myFile);
         formData.append("upload_preset", "yfhzkfb5");
 
@@ -87,6 +70,7 @@ const PersonalPromiseInfo = () => {
         })
         navigate('/receiver-details');
     }
+    // console.log(recording)
 
 
     return (
@@ -111,25 +95,23 @@ const PersonalPromiseInfo = () => {
             <div className='max-w-[1000px] mx-auto'>
                 <div className='w-11/12 sm:w-5/6 md:w-3/5 mx-auto p-4'>
                     <div className='flex items-center justify-center mt-16 mb-10'>
-                        {/* <div>
-                            <ReactMediaRecorder
-                                video
-                                render={({ previewStream }) => (
-                                    <VideoPreview stream={previewStream} status={status} />
-                                )}
-                            />
-                        </div> */}
                         <ReactMediaRecorder
                             video
                             render={({ status, previewStream, startRecording, stopRecording, mediaBlobUrl, error }) => (
                                 <div>
                                     <p className='text-xl font-medium capitalize text-center mb-4'>{status}...</p>
                                     <VideoPreview stream={previewStream} status={status} />
-                                    <video className='rounded w-[325px] sm:w-[450px] md:w-[500px] mx-auto' src={mediaBlobUrl} controls loop />
+                                    <video className='rounded w-[325px] sm:w-[450px] md:w-[500px] mx-auto mt-4' src={mediaBlobUrl} autoplay controls loop />
                                     {setVisual(mediaBlobUrl)}
                                     <div className='flex flex-col space-y-2 mt-4'>
-                                        <button className='bg-[#3a3737] text-white w-[200px] mx-auto px-4 py-2 rounded-lg hover:bg-black tracking-wide' onClick={startRecording}>Start Recording</button>
-                                        <button className='bg-[#3a3737] text-white w-[200px] mx-auto px-4 py-2 rounded-lg hover:bg-black tracking-wide' onClick={stopRecording}>Stop Recording</button>
+                                        {
+                                            (status.toString() === "stopped" || status.toString() === "idle") &&
+                                            <button className='bg-[#3a3737] text-white w-[200px] mx-auto px-4 py-2 rounded-lg hover:bg-black tracking-wide' onClick={startRecording}>Start Recording</button>
+                                        }
+                                        {
+                                            (status.toString() === "recording") &&
+                                            <button className='bg-[#3a3737] text-white w-[200px] mx-auto px-4 py-2 rounded-lg hover:bg-black tracking-wide' onClick={stopRecording}>Stop Recording</button>
+                                        }
                                         <p className='font-medium text-red-500'>{error}</p>
                                     </div>
                                 </div>
@@ -138,7 +120,7 @@ const PersonalPromiseInfo = () => {
                         </ReactMediaRecorder>
                     </div>
                 </div>
-            </div>
+            </div >
             <div className='flex flex-col items-center justify-center mb-20'>
                 <p className='text-lg mb-3 md:w-[500px] mx-auto text-center'>Proceed furthur by recording a video and click on the below button</p>
                 <button onClick={receiverDetails} className='bg-[#79589f] px-8 py-2 rounded-lg text-white tracking-wide hover:bg-[#8A6AAE]'>Next</button>
@@ -153,7 +135,7 @@ const PersonalPromiseInfo = () => {
                 </div>
             </div> */}
 
-        </div>
+        </div >
     );
 };
 
