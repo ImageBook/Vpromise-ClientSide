@@ -35,7 +35,7 @@ const SentPromises = () => {
             <Navbar></Navbar>
             <p className='text-[22px] lg:text-3xl text-center mb-10 mt-14'>Your Sent Promises</p>
             <div className='max-w-[1000px] mx-auto'>
-                <div className='flex flex-col items-center justify-center gap-5 mb-10'>
+                <div className='flex flex-col items-center justify-center gap-5 mb-20'>
                     {
                         [...promise].reverse().map(p => <SentPromiseCard key={p._id} p={p} ></SentPromiseCard>)
                     }

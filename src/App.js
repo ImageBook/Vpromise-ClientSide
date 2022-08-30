@@ -14,24 +14,27 @@ import ReceivedPromiseAccepted from './Pages/ReceivedPromiseAccepted';
 import ReceivedPromiseRejected from './Pages/ReceivedPromiseRejected';
 import OtpPage from './Pages/OtpPage';
 import UpdateProfile from './Pages/UpdateProfile';
+import ScrollToTop from './Pages/components/ScrollToTop'
 
 function App() {
   return (
     <div className='font'>
-      <Routes>
-        <Route path='/' element={<Login></Login>}></Route>
-        <Route path='/signup' element={<SignUp></SignUp>}></Route>
-        <Route path='/verify' element={<OtpPage></OtpPage>}></Route>
-        <Route path='/home' element={<Home></Home>}></Route>
-        <Route path='/update-profile' element={<UpdateProfile></UpdateProfile>}></Route>
-        <Route path='/personal-promise' element={<PersonalPromise></PersonalPromise>}></Route>
-        <Route path='/personal-promise-info' element={<PersonalPromiseInfo></PersonalPromiseInfo>}></Route>
-        <Route path='/receiver-details' element={<ReceiverDetails></ReceiverDetails>}></Route>
-        <Route path='/sent-promises' element={<SentPromises></SentPromises>}></Route>
-        <Route path='/received-promises/pending' element={<ReceivedPromises></ReceivedPromises>}></Route>
-        <Route path='/received-promises/accepted' element={<ReceivedPromiseAccepted></ReceivedPromiseAccepted>}></Route>
-        <Route path='/received-promises/rejected' element={<ReceivedPromiseRejected></ReceivedPromiseRejected>}></Route>
-      </Routes>
+      <ScrollToTop>
+        <Routes>
+          <Route path='/' element={<Login></Login>}></Route>
+          <Route path='/signup' element={<SignUp></SignUp>}></Route>
+          <Route path='/verify' element={<OtpPage></OtpPage>}></Route>
+          <Route path='/home' element={<Home></Home>}></Route>
+          <Route path='/update-profile' element={<UpdateProfile></UpdateProfile>}></Route>
+          <Route path='/personal-promise' element={<PersonalPromise></PersonalPromise>}></Route>
+          <Route path='/personal-promise-info' element={<PersonalPromiseInfo></PersonalPromiseInfo>}></Route>
+          <Route path='/receiver-details' element={<ReceiverDetails></ReceiverDetails>}></Route>
+          <Route path='/sent-promises' element={<SentPromises></SentPromises>}></Route>
+          <Route path='/received-promises/pending' element={<ReceivedPromises></ReceivedPromises>}></Route>
+          <Route path='/received-promises/accepted' element={<ReceivedPromiseAccepted></ReceivedPromiseAccepted>}></Route>
+          <Route path='/received-promises/rejected' element={<ReceivedPromiseRejected></ReceivedPromiseRejected>}></Route>
+        </Routes>
+      </ScrollToTop>
       <ToastContainer></ToastContainer>
     </div>
   );
