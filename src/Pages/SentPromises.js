@@ -1,3 +1,4 @@
+import { onAuthStateChanged } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../firebase.init';
@@ -5,19 +6,29 @@ import SentPromiseCard from './components/SentPromiseCard';
 import Navbar from './Shared/Navbar';
 
 const SentPromises = () => {
-    const [user] = useAuthState(auth);
-    const email = user?.email;
+    // const [user] = useAuthState(auth);
+    // const email = user?.email;
     const [promise, setPromise] = useState([]);
     // const { title, due_date, notes, senderContact, receiverContact, receiverText, status, sentVideo } = promise;
+    const [phone, setPhone] = useState('');
 
     useEffect(() => {
-        fetch(`http://localhost:5000/sent-promises/${email}`)
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setPhone(user.phoneNumber);
+            }
+        });
+
+    }, []);
+
+    useEffect(() => {
+        fetch(`http://localhost:5000/sent-promises/${phone}`)
             .then(res => res.json())
             .then(data => {
                 console.log('promise info', data);
                 setPromise(data);
             })
-    }, [email]);
+    }, [phone]);
 
     return (
         <div>

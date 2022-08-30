@@ -1,3 +1,4 @@
+import { onAuthStateChanged } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
@@ -8,17 +9,21 @@ import Navbar from './Shared/Navbar';
 const ReceivedPromiseAccepted = () => {
     const [promises, setPromises] = useState([]);
     const [userData, setUserData] = useState({});
-    const [user] = useAuthState(auth);
-    const email = user?.email;
-    const phone = userData.phone;
+    // const [user] = useAuthState(auth);
+    // const email = user?.email;
+    // const phone = userData.phone;
+
+    const [phone, setPhone] = useState('');
+
 
     useEffect(() => {
-        fetch(`http://localhost:5000/user/${email}`)
-            .then(res => res.json())
-            .then(data => {
-                setUserData(data);
-            })
-    }, [email]);
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setPhone(user.phoneNumber);
+            }
+        });
+
+    }, []);
 
     useEffect(() => {
         fetch(`http://localhost:5000/received-accepted-promises/${phone}`)

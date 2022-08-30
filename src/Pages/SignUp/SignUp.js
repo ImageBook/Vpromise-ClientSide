@@ -12,16 +12,16 @@ import { signInOtpReducer } from '../../App/Features/PersonalPromiseData/OtpResp
 
 
 const SignUp = () => {
-    const [
-        createUserWithEmailAndPassword,
-        user,
-        loading,
-        error,
-    ] = useCreateUserWithEmailAndPassword(auth);
-    const [updateProfile, updating, updateError] = useUpdateProfile(auth);
+    // const [
+    //     createUserWithEmailAndPassword,
+    //     user,
+    //     loading,
+    //     error,
+    // ] = useCreateUserWithEmailAndPassword(auth);
+    // const [updateProfile, updating, updateError] = useUpdateProfile(auth);
 
     const { register, formState: { errors }, handleSubmit } = useForm();
-    const [phoneNumber, setPhoneNumber] = useState('');
+    // const [phoneNumber, setPhoneNumber] = useState('');
     const [number, setNumber] = useState('');
     const [confirmObj, setConfirmObj] = useState('');
     const [flag, setFlag] = useState(false);
@@ -30,7 +30,7 @@ const SignUp = () => {
     const [email, setEmail] = useState('');
 
 
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
 
     // useEffect(() => {
@@ -60,21 +60,21 @@ const SignUp = () => {
 
     const navigate = useNavigate();
 
-    if (loading || updating) {
-        return <>
-            <div className='mt-20'></div>
-            <Spinner></Spinner>
-        </>
-    }
+    // if (loading || updating) {
+    //     return <>
+    //         <div className='mt-20'></div>
+    //         <Spinner></Spinner>
+    //     </>
+    // }
 
-    let signInError;
-    if (error || updateError) {
-        signInError = <p className='text-red-500 font-medium text-center'>{error?.message || updateError?.message}</p>
-    }
-    if (user) {
-        navigate('/home');
-        // console.log('user', user);
-    }
+    // let signInError;
+    // if (error || updateError) {
+    //     signInError = <p className='text-red-500 font-medium text-center'>{error?.message || updateError?.message}</p>
+    // }
+    // if (user) {
+    //     navigate('/home');
+    //     // console.log('user', user);
+    // }
 
 
 
@@ -188,7 +188,7 @@ const SignUp = () => {
                             {errors.password?.type === 'minLength' && <span className='text-red-500'>{errors.password.message}</span>}
                         </p>
 
-                        {signInError}
+                        {/* {signInError} */}
 
                         <button type='submit' className='w-full h-12 bg-[#534292] hover:bg-[#4e37a1] rounded-lg text-[#fafafa] text-lg font-medium tracking-wide'>Sign Up</button>
                         <hr className='mt-10 mb-5 bg-black' />

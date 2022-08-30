@@ -1,21 +1,48 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
-import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux';
 import { personalReceiverVideoReducer } from '../../App/Features/PersonalPromiseData/ReceiverVideoSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { ReactMediaRecorder, useReactMediaRecorder } from "react-media-recorder";
+import axios from 'axios';
+
+const VideoPreview = ({
+    stream,
+    width = 300,
+    status
+}) => {
+    const videoRef = useRef(null);
+
+    useEffect(() => {
+        if (videoRef.current && stream) {
+            videoRef.current.srcObject = stream;
+        }
+    }, [stream]);
+    console.log("stream -->", stream);
+    return !stream ? null : (
+        <video className={`${status} w-full`} ref={videoRef} width={width} autoPlay />
+    );
+};
+
+
 
 const ReceivedPromisesCard = ({ promise }) => {
     const { _id, title, due_date, notes, senderContact, receiverContact, receiverText, status, sentVideo } = promise;
     const [video, setVideo] = useState('');
-    const [error, setError] = useState('');
+    const [error, setError] = useState(false);
+    const [visual, setVisual] = useState('');
 
-    const acceptPromise = () => {
-        if (video === '') {
+    const acceptPromise = async () => {
+        if (visual === '') {
             setError(true);
         }
         else {
             const formData = new FormData();
-            formData.append('file', video);
+            const response = await fetch(visual).then(response => response.blob())
+
+            const myFile = new File(
+                [response], 'visual.mp4', { type: 'video/webm' }
+            )
+            formData.append('file', myFile);
             formData.append("upload_preset", "yfhzkfb5");
 
             axios.post("https://api.cloudinary.com/v1_1/dtflws28q/video/upload", formData).then((response) => {
@@ -91,10 +118,26 @@ const ReceivedPromisesCard = ({ promise }) => {
                 {
                     (status === 'Pending') &&
                     <>
-                        <p className='font-normal mb-2 text-[#6a17c9] mt-1'>Upload a video to accept the promise</p>
-                        <input onChange={(event) => setVideo(event.target.files[0])} className='mb-3 block' type="file" />
-                        {error && <p className='text-red-500 mb-2'>Please upload a video to accept the promise</p>}
-                        <div className='flex space-x-4'>
+                        <p className='font-normal mb-2 text-[#6a17c9] mt-1'>Record a video to accept the promise</p>
+                        <ReactMediaRecorder
+                            video
+                            render={({ status, previewStream, startRecording, stopRecording, mediaBlobUrl, error }) => (
+                                <div>
+                                    <p className='text-xl font-medium capitalize text-center mb-4'>{status}...</p>
+                                    <VideoPreview stream={previewStream} status={status} />
+                                    <video className='rounded w-[325px] sm:w-[450px] md:w-[500px] mx-auto mt-4' src={mediaBlobUrl} controls loop />
+                                    {setVisual(mediaBlobUrl)}
+                                    <div className='flex flex-col space-y-2 mt-4'>
+                                        <button className='bg-[#3a3737] text-white w-[200px] mx-auto px-4 py-2 rounded-lg hover:bg-black tracking-wide' onClick={startRecording}>Start Recording</button>
+                                        <button className='bg-[#3a3737] text-white w-[200px] mx-auto px-4 py-2 rounded-lg hover:bg-black tracking-wide' onClick={stopRecording}>Stop Recording</button>
+                                        <p className='font-medium text-red-500'>{error}</p>
+                                    </div>
+                                </div>
+                            )}
+                        >
+                        </ReactMediaRecorder>
+                        {error && <p className='text-red-500'>Please record a video</p>}
+                        <div className='flex space-x-4 mt-6 items-center justify-center'>
                             <button onClick={acceptPromise} className='bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-1 rounded-lg'>Accept Promise</button>
                             <button onClick={rejectPromise} className='bg-red-500 hover:bg-red-600 text-white px-4 py-1 rounded-lg'>Reject Promise</button>
                         </div>

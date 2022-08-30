@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Login.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
@@ -9,52 +9,55 @@ import PhoneInput from 'react-phone-number-input'
 import { onAuthStateChanged, RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 
 const Login = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    // const [email, setEmail] = useState('');
+    // const [password, setPassword] = useState('');
     const [flag, setFlag] = useState(false);
     const [number, setNumber] = useState('');
     const [confirmObj, setConfirmObj] = useState('');
     const [otp, setOtp] = useState('');
-
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            navigate('/home');
-        }
-    });
-
-    const [
-        signInWithEmailAndPassword,
-        user,
-        loading,
-        error,
-    ] = useSignInWithEmailAndPassword(auth);
-
-    const getEmail = event => {
-        setEmail(event.target.value);
-    }
-    const getPassword = event => {
-        setPassword(event.target.value);
-    }
     const navigate = useNavigate();
-    if (user) {
-        navigate('/home');
-    }
-    if (loading) {
-        return <>
-            <div className='mt-20'>
-            </div>
-            <Spinner></Spinner>
-        </>
-    }
-    let signInError;
-    if (error) {
-        signInError = <p className='text-red-500 font-medium text-center'>{error?.message}</p>
-    }
+
+    useEffect(() => {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                navigate('/home');
+            }
+        });
+    })
+
+    // const [
+    //     signInWithEmailAndPassword,
+    //     user,
+    //     loading,
+    //     error,
+    // ] = useSignInWithEmailAndPassword(auth);
+
+    // const getEmail = event => {
+    //     setEmail(event.target.value);
+    // }
+    // const getPassword = event => {
+    //     setPassword(event.target.value);
+    // }
+
+    // if (user) {
+    //     navigate('/home');
+    // }
+    // if (loading) {
+    //     return <>
+    //         <div className='mt-20'>
+    //         </div>
+    //         <Spinner></Spinner>
+    //     </>
+    // }
+    // let signInError;
+    // if (error) {
+    //     signInError = <p className='text-red-500 font-medium text-center'>{error?.message}</p>
+    // }
 
     const setUpRecaptcha = (number) => {
         const recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {}, auth);
         recaptchaVerifier.render();
-        return signInWithPhoneNumber(auth, number, recaptchaVerifier)
+        return signInWithPhoneNumber(auth, number, recaptchaVerifier);
     }
 
     const handleVerify = async (e) => {
@@ -63,10 +66,11 @@ const Login = () => {
         navigate('/home');
     }
 
-    const handleSubmit = async event => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         // await signInWithEmailAndPassword(email, password);
         const response = await setUpRecaptcha(number);
+        // console.log(response);
         setConfirmObj(response);
         setFlag(true);
     };
@@ -91,7 +95,7 @@ const Login = () => {
                         {/* <input onBlur={getEmail} className='w-full h-14 bg-gray-100 px-3 py-2 mb-3 rounded-lg focus:outline-none' type="email" placeholder='Your Email' name="email" requried />
                         <input onBlur={getPassword} className='w-full h-14 bg-gray-100 px-3 py-2 mb-3 rounded-lg focus:outline-none' type="password" placeholder='Your Password' name="password" required /> */}
 
-                        {signInError}
+                        {/* {signInError} */}
 
                         <button type='submit' className='w-full h-12 bg-[#534292] hover:bg-[#4e37a1] rounded-lg text-[#fafafa] text-lg font-medium tracking-wide'>Log In</button>
                         <hr className='mt-10 mb-5 bg-black' />
