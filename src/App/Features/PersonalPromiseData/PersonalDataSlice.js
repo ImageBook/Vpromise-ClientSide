@@ -6,7 +6,8 @@ export const PersonalDataSlice = createSlice({
         data: {
             title: '',
             date: '',
-            notes: ''
+            notes: '',
+            type: ''
         }
     },
     reducers: {

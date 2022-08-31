@@ -47,17 +47,11 @@ const Navbar = () => {
                         <div>
                             <Link className='text-2xl font-bold text-[#8A6AAE] hover:text-[#6e4f91]' to='/home'>Vpromise</Link>
                         </div>
-                        {/* <div className='flex items-center space-x-3'>
-                            <p className='text-xl font-medium tracking-wide'>MENU</p>
-                        </div> */}
                         <div className='flex items-center space-x-6'>
                             <div className='flex flex-col items-end'>
                                 <div className='flex items-center space-x-2'>
                                     <FaUserCircle onClick={updateProfile} className="w-8 h-8 text-[#8A6AAE] hover:text-[#835caf] hover:cursor-pointer"></FaUserCircle>
-
-                                    <p className='text-xl font-medium'>{phone}</p>
-
-
+                                    <p className='text-xl font-medium'>{name}</p>
                                 </div>
                             </div>
                             {
@@ -75,7 +69,7 @@ const Navbar = () => {
                             <div className='flex items-center space-x-2'>
                                 <FaUserCircle onClick={updateProfile} className="w-7 h-7 text-[#8A6AAE] hover:text-[#835caf] hover:cursor-pointer"></FaUserCircle>
 
-                                <p className='text-lg font-medium'>{phone}</p>
+                                <p className='text-lg font-medium'>{name}</p>
                             </div>
                             {
                                 check && <div><button onClick={doSignOut} className='bg-[#79589f] px-3 py-[6px] rounded-lg text-white tracking-wide hover:bg-[#8A6AAE]'>Log Out</button></div>

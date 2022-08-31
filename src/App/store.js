@@ -7,12 +7,18 @@ import thunk from 'redux-thunk';
 import SenderVideoSlice from "./Features/PersonalPromiseData/SenderVideoSlice";
 import ReceiverVideoSlice from "./Features/PersonalPromiseData/ReceiverVideoSlice";
 import OtpResponseSlice from "./Features/PersonalPromiseData/OtpResponseSlice";
+import PersonalTypeSlice from "./Features/PersonalPromiseData/PersonalTypeSlice";
+import ProfessionalTypeSlice from "./Features/PersonalPromiseData/ProfessionalTypeSlice";
+import FinancialTypeSlice from "./Features/PersonalPromiseData/FinancialTypeSlice";
 
 const reducers = combineReducers({
     personalPromiseReducer: PersonalDataSlice,
     personalSenderVideoReducer: SenderVideoSlice,
     personalReceiverVideoReducer: ReceiverVideoSlice,
-    signInOtpReducer: OtpResponseSlice
+    signInOtpReducer: OtpResponseSlice,
+    personalTypeReducer: PersonalTypeSlice,
+    professionalTypeReducer: ProfessionalTypeSlice,
+    financialTypeReducer: FinancialTypeSlice
 });
 
 const persistConfig = {

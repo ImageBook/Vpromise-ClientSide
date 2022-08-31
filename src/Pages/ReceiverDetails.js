@@ -20,7 +20,7 @@ const ReceiverDetails = () => {
 
 const ReceiverDetails2 = () => {
     const personalData = useSelector((state) => state.personalPromiseReducer.data);
-    const { title, date, notes } = personalData;
+    const { title, date, notes, type } = personalData;
     const videoData = useSelector((state) => state.personalSenderVideoReducer.data);
     const { visual } = videoData;
     // const [user] = useAuthState(auth);
@@ -66,6 +66,7 @@ const ReceiverDetails2 = () => {
             title: title,
             due_date: date,
             notes: notes,
+            type: type,
             senderContact: phone,
             receiverContact: receiverNumber,
             receiverText: data.message,
@@ -100,25 +101,13 @@ const ReceiverDetails2 = () => {
                     <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col items-center justify-center space-y-1'>
                         <div className='flex flex-col items-start mb-1'>
                             <p className='font-light mb-1 w-full'>Receiver Phone Number</p>
-                            <PhoneInput className='w-[300px] md:w-[350px] lg:w-[400px] h-14 bg-white px-3 py-2 mb-3 rounded-lg focus:outline-none'
+                            <PhoneInput className='w-[300px] md:w-[350px] lg:w-[400px] bg-white px-3 py-0  mb-3 rounded-lg focus:outline-none'
                                 defaultCountry="IN"
                                 placeholder="Phone Number"
                                 value={receiverNumber}
-                                onChange={setReceiverNumber} required />
-                            {/* <input {...register("number", {
-                                required: {
-                                    value: true,
-                                    message: 'Phone Number is required'
-                                },
-                                pattern: {
-                                    value: /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/,
-                                    message: "Invalid Phone Number",
-                                },
-                            })} className='w-[300px] md:w-[350px] lg:w-[400px] h-14 bg-white px-3 py-2 mb-3 rounded-lg focus:outline-none' type="text" name="number" placeholder='Number' required />
-                            <p>
-                                {errors.number?.type === 'required' && <span className='text-red-500'>{errors.number.message}</span>}
-                                {errors.number?.type === 'pattern' && <span className='text-red-500'>{errors.number.message}</span>}
-                            </p> */}
+                                onChange={setReceiverNumber}
+                                required />
+
                         </div>
                         <div className='flex flex-col items-start mb-1'>
                             <p className='font-light mb-1'>What Receiver should say in the video</p>

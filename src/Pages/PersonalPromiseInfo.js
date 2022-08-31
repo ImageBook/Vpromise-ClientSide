@@ -9,7 +9,6 @@ import axios from 'axios';
 
 const VideoPreview = ({
     stream,
-
     status
 }) => {
     const videoRef = useRef(null);
@@ -35,8 +34,6 @@ const PersonalPromiseInfo = () => {
 
     const [visual, setVisual] = useState('');
     console.log('visual', visual);
-
-    const [recording, setRecording] = useState(false);
 
     const receiverDetails = async () => {
         const formData = new FormData();

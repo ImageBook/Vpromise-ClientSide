@@ -29,23 +29,33 @@ const Home = () => {
         navigate('/received-promises/pending');
     }
 
+    const goPersonalPromise = () => {
+        navigate('/personal-promise');
+    }
+    const goProfessionalPromise = () => {
+        navigate('/professional-promise');
+    }
+    const goFinancialPromise = () => {
+        navigate('/financial-promise');
+    }
+
     return (
         <div className='relative min-h-screen'>
             <Navbar></Navbar>
             <div className='my-14'>
                 <p className='text-[22px] lg:text-3xl text-center mb-6'>Choose Your Promise Type</p>
                 <div className='flex flex-col items-center justify-center mt-10 space-y-4'>
-                    <Link className='border rounded-lg w-[270px] lg:w-[350px] py-2 bg-gray-50 hover:bg-gray-100 text-lg lg:text-xl text-[#79589F] text-center flex items-center justify-center space-x-2' to='/personal-promise'>
+                    <button onClick={goPersonalPromise} className='border rounded-lg w-[270px] lg:w-[350px] py-2 bg-gray-50 hover:bg-gray-100 text-lg lg:text-xl text-[#79589F] text-center flex items-center justify-center space-x-2' >
                         <MdPersonalInjury className='w-7 h-7 -ml-6'></MdPersonalInjury>
                         <p>Personal Promise</p>
-                    </Link>
-                    <Link className='border rounded-lg w-[270px] lg:w-[350px] py-2 bg-gray-50 hover:bg-gray-100 text-lg lg:text-xl text-center flex items-center justify-center space-x-2' to='/personal-promise'>
+                    </button>
+                    <button onClick={goProfessionalPromise} className='border rounded-lg w-[270px] lg:w-[350px] py-2 bg-gray-50 hover:bg-gray-100 text-lg lg:text-xl text-center flex items-center justify-center space-x-2'>
                         <FcAcceptDatabase className='w-7 h-7 text-[#79589F] ml-2'></FcAcceptDatabase>
-                        <p className='text-[#79589F]'>Professional Promise</p></Link>
-                    <Link className='border rounded-lg w-[270px] lg:w-[350px] py-2 bg-gray-50 hover:bg-gray-100 text-lg lg:text-xl text-[#79589F] text-center flex items-center justify-center space-x-2' to='/personal-promise'>
+                        <p className='text-[#79589F]'>Professional Promise</p></button>
+                    <button onClick={goFinancialPromise} className='border rounded-lg w-[270px] lg:w-[350px] py-2 bg-gray-50 hover:bg-gray-100 text-lg lg:text-xl text-[#79589F] text-center flex items-center justify-center space-x-2'>
                         <GiReceiveMoney className='w-7 h-7 text-[#79589F] -ml-6'></GiReceiveMoney>
                         <p>Financial Promise</p>
-                    </Link>
+                    </button>
                 </div>
             </div>
 

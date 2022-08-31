@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { personalPromiseReducer } from '../../App/Features/PersonalPromiseData/PersonalDataSlice';
-import Navbar from '../Shared/Navbar';
+import { personalPromiseReducer } from '../App/Features/PersonalPromiseData/PersonalDataSlice';
+import Navbar from '../Pages/Shared/Navbar';
 import { useForm } from "react-hook-form";
 
-const PersonalPromise = () => {
+const FinacialPromise = () => {
     return <div>
         <Navbar></Navbar>
-        <PersonalPromise2 />
+        <FinancialPromise2 />
     </div>
 }
 
-const PersonalPromise2 = () => {
+const FinancialPromise2 = () => {
     const [title, setTitle] = useState(null);
     const [date, setDate] = useState(null);
     const [notes, setNotes] = useState(null);
@@ -27,7 +27,7 @@ const PersonalPromise2 = () => {
             title: title,
             date: date,
             notes: notes,
-            type: 'Personal Promise'
+            type: 'Financial Promise'
         };
         event.preventDefault();
         dispatch(personalPromiseReducer(data));
@@ -39,7 +39,7 @@ const PersonalPromise2 = () => {
     return (
         <div>
             {/* <Navbar></Navbar> */}
-            <p className='text-[22px] lg:text-3xl text-center mb-6 mt-14'>Personal Promise</p>
+            <p className='text-[22px] lg:text-3xl text-center mb-6 mt-14'>Financial Promise</p>
             <div className='max-w-[1000px] mx-auto'>
                 <div className='w-11/12 sm:w-5/6 md:w-3/5 mx-auto border rounded-lg p-4 bg-gray-100'>
                     <form onSubmit={handleSubmit} className='flex flex-col items-center justify-center'>
@@ -63,4 +63,4 @@ const PersonalPromise2 = () => {
     );
 };
 
-export default PersonalPromise;
+export default FinacialPromise;

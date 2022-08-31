@@ -15,8 +15,12 @@ import ReceivedPromiseRejected from './Pages/ReceivedPromiseRejected';
 import OtpPage from './Pages/OtpPage';
 import UpdateProfile from './Pages/UpdateProfile';
 import ScrollToTop from './Pages/components/ScrollToTop'
+import CheckUser from './Pages/components/CheckUser';
+import ProfessionalPromise from './Pages/ProfessionalPromise';
+import FinancialPromise from './Pages/FinancialPromise';
 
 function App() {
+
   return (
     <div className='font'>
       <ScrollToTop>
@@ -27,6 +31,8 @@ function App() {
           <Route path='/home' element={<Home></Home>}></Route>
           <Route path='/update-profile' element={<UpdateProfile></UpdateProfile>}></Route>
           <Route path='/personal-promise' element={<PersonalPromise></PersonalPromise>}></Route>
+          <Route path='/professional-promise' element={<ProfessionalPromise></ProfessionalPromise>}></Route>
+          <Route path='/financial-promise' element={<FinancialPromise></FinancialPromise>}></Route>
           <Route path='/personal-promise-info' element={<PersonalPromiseInfo></PersonalPromiseInfo>}></Route>
           <Route path='/receiver-details' element={<ReceiverDetails></ReceiverDetails>}></Route>
           <Route path='/sent-promises' element={<SentPromises></SentPromises>}></Route>
