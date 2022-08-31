@@ -138,25 +138,12 @@ const SignUp = () => {
                         </p>
                         {/* Number */}
                         <PhoneInput className='w-full h-14 bg-gray-100 px-3 py-2 mb-3 rounded-lg focus:outline-none'
+                            international
                             defaultCountry="IN"
                             placeholder="Phone Number"
                             value={number}
                             onChange={setNumber} required />
                         <div id="recaptcha-container"></div>
-                        {/* <input onChange={(e) => setPhoneNumber(e.target.value)} {...register("number", {
-                        required: {
-                            value: true,
-                            message: 'Phone Number is required'
-                        },
-                        pattern: {
-                            value: /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/,
-                            message: "Invalid Phone Number",
-                        },
-                    })} className='w-full h-14 bg-gray-100 px-3 py-2 mb-3 rounded-lg focus:outline-none' type="text" placeholder='Phone Number' name="number" />
-                    <p>
-                        {errors.number?.type === 'required' && <span className='text-red-500'>{errors.number.message}</span>}
-                        {errors.number?.type === 'pattern' && <span className='text-red-500'>{errors.number.message}</span>}
-                    </p> */}
                         {/* Email */}
                         <input {...register("email", {
                             required: {

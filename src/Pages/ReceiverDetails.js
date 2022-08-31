@@ -10,6 +10,7 @@ import axios from 'axios';
 import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input'
 import { onAuthStateChanged } from 'firebase/auth';
+import '../Pages/components/NumberInput.css';
 
 const ReceiverDetails = () => {
     return <div>
@@ -101,7 +102,8 @@ const ReceiverDetails2 = () => {
                     <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col items-center justify-center space-y-1'>
                         <div className='flex flex-col items-start mb-1'>
                             <p className='font-light mb-1 w-full'>Receiver Phone Number</p>
-                            <PhoneInput className='w-[300px] md:w-[350px] lg:w-[400px] bg-white px-3 py-0  mb-3 rounded-lg focus:outline-none'
+                            <PhoneInput className='w-[300px] md:w-[350px] lg:w-[400px] bg-white px-3 py-2 mb-3 rounded-lg focus:outline-none'
+                            international
                                 defaultCountry="IN"
                                 placeholder="Phone Number"
                                 value={receiverNumber}

@@ -19,7 +19,7 @@ const VideoPreview = ({
     }, [stream]);
     console.log("stream -->", stream);
     return !stream ? null : (
-        <video className={`${status} w-full`} ref={videoRef} width={width} autoPlay />
+        <video className={`${status} w-full rounded`} ref={videoRef} width={width} autoPlay />
     );
 };
 
@@ -102,6 +102,9 @@ const ReceivedPromisesCard = ({ promise }) => {
             <div className=''>
                 <video className='rounded w-96 mb-3' src={sentVideo} controls></video>
                 {
+                    promise.type && <p className='font-medium mb-1'>Type: <span className=' text-purple-500'>{promise.type}</span></p>
+                }
+                {
                     status === 'Pending' && <p className='font-medium mb-1'>Status: <span className=' text-sky-500'>{status}</span></p>
                 }
                 {
@@ -124,8 +127,14 @@ const ReceivedPromisesCard = ({ promise }) => {
                             render={({ status, previewStream, startRecording, stopRecording, mediaBlobUrl, error }) => (
                                 <div>
                                     <p className='text-xl font-medium capitalize text-center mb-4'>{status}...</p>
-                                    <VideoPreview stream={previewStream} status={status} />
-                                    <video className='rounded w-[325px] sm:w-[450px] md:w-[500px] mx-auto mt-4' src={mediaBlobUrl} controls loop autoplay />
+                                    {
+                                        status.toString() !== "stopped" &&
+                                        <VideoPreview stream={previewStream} status={status} />
+                                    }
+                                    {
+                                        (status.toString() === "stopped") &&
+                                        <video className='rounded w-[325px] sm:w-[450px] md:w-[500px] mx-auto mt-4' src={mediaBlobUrl} autoplay controls loop />
+                                    }
                                     {setVisual(mediaBlobUrl)}
                                     <div className='flex flex-col space-y-2 mt-4'>
                                         {
