@@ -104,9 +104,8 @@ const PersonalPromiseInfo = () => {
                                         status.toString() !== "stopped" &&
                                         <VideoPreview stream={previewStream} status={status} />
                                     }
-
                                     {
-                                        (status.toString() === "recording" || status.toString() === "stopped") &&
+                                        (status.toString() === "stopped") &&
                                         <video className='rounded w-[325px] sm:w-[450px] md:w-[500px] mx-auto mt-4' src={mediaBlobUrl} autoplay controls loop />
                                     }
                                     {setVisual(mediaBlobUrl)}
