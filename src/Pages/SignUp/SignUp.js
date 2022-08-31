@@ -138,7 +138,7 @@ const SignUp = () => {
                         </p>
                         {/* Number */}
                         <PhoneInput className='w-full h-14 bg-gray-100 px-3 py-2 mb-3 rounded-lg focus:outline-none'
-                            defaultCountry="BD"
+                            defaultCountry="IN"
                             placeholder="Phone Number"
                             value={number}
                             onChange={setNumber} required />

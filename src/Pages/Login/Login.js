@@ -101,7 +101,7 @@ const Login = () => {
                     <form onSubmit={handleSubmit} className='w-11/12 sm:w-[400px] lg:w-[550px] border rounded-lg p-4 md:p-5 lg:p-8 bg-white'>
                         <p className='text-xl lg:text-[22px] tracking-wide mb-6 text-center'>Please Log In to Continue</p>
                         <PhoneInput className='w-full h-14 bg-gray-100 px-3 py-2 mb-5 rounded-lg focus:outline-none'
-                            defaultCountry="BD"
+                            defaultCountry="IN"
                             placeholder="Phone Number"
                             value={number}
                             onChange={setNumber} required />

@@ -9,7 +9,7 @@ import axios from 'axios';
 
 const VideoPreview = ({
     stream,
-    width = 300,
+
     status
 }) => {
     const videoRef = useRef(null);
@@ -19,9 +19,9 @@ const VideoPreview = ({
             videoRef.current.srcObject = stream;
         }
     }, [stream]);
-    console.log("stream -->", stream);
+    // console.log("stream -->", stream);
     return !stream ? null : (
-        <video className={`${status} w-full`} ref={videoRef} width={width} autoPlay />
+        <video className={`${status} w-screen rounded`} ref={videoRef} autoPlay />
     );
 };
 
@@ -93,15 +93,22 @@ const PersonalPromiseInfo = () => {
                 <button className='bg-[#79589f] px-8 py-2 rounded-lg text-white tracking-wide hover:bg-[#8A6AAE]'>Click to Record Video</button>
             </div> */}
             <div className='max-w-[1000px] mx-auto'>
-                <div className='w-11/12 sm:w-5/6 md:w-3/5 mx-auto p-4'>
+                <div className=''>
                     <div className='flex items-center justify-center mt-16 mb-10'>
                         <ReactMediaRecorder
                             video
                             render={({ status, previewStream, startRecording, stopRecording, mediaBlobUrl, error }) => (
                                 <div>
                                     <p className='text-xl font-medium capitalize text-center mb-4'>{status}...</p>
-                                    <VideoPreview stream={previewStream} status={status} />
-                                    <video className='rounded w-[325px] sm:w-[450px] md:w-[500px] mx-auto mt-4' src={mediaBlobUrl} autoplay controls loop />
+                                    {
+                                        status.toString() !== "stopped" &&
+                                        <VideoPreview stream={previewStream} status={status} />
+                                    }
+
+                                    {
+                                        (status.toString() === "recording" || status.toString() === "stopped") &&
+                                        <video className='rounded w-[325px] sm:w-[450px] md:w-[500px] mx-auto mt-4' src={mediaBlobUrl} autoplay controls loop />
+                                    }
                                     {setVisual(mediaBlobUrl)}
                                     <div className='flex flex-col space-y-2 mt-4'>
                                         {
