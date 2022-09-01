@@ -77,7 +77,7 @@ const SignUp = () => {
             name: data.name,
             email: data.email
         };
-        fetch(`http://localhost:5000/user/${number}`, {
+        fetch(`https://evening-wave-04854.herokuapp.com/user/${number}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'

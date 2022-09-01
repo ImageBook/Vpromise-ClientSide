@@ -52,7 +52,7 @@ const Login = () => {
             })
         localStorage.setItem('isLoggedIn', '1');
 
-        fetch(`http://localhost:5000/user/${number}`)
+        fetch(`https://evening-wave-04854.herokuapp.com/user/${number}`)
             .then(res => res.json())
             .then(data => {
                 if (data.email) {
