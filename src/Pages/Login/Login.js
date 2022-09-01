@@ -11,6 +11,7 @@ import { onAuthStateChanged, RecaptchaVerifier, signInWithPhoneNumber } from 'fi
 const Login = () => {
     // const [email, setEmail] = useState('');
     // const [password, setPassword] = useState('');
+    const [userData, setUserData] = useState({});
     const [flag, setFlag] = useState(false);
     const [number, setNumber] = useState('');
     const [confirmObj, setConfirmObj] = useState('');
@@ -19,12 +20,12 @@ const Login = () => {
 
     useEffect(() => {
         const userLoggedInCheck = localStorage.getItem('isLoggedIn');
-        if(userLoggedInCheck==='1'){
+        if (userLoggedInCheck === '1') {
             navigate('/');
         }
-    },[])
+    }, [])
 
-    
+
 
     const setUpRecaptcha = (number) => {
         const recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {}, auth);
@@ -49,9 +50,25 @@ const Login = () => {
             .then(data => {
                 console.log('login data', data);
             })
-            localStorage.setItem('isLoggedIn','1');
-        navigate('/');
+        localStorage.setItem('isLoggedIn', '1');
 
+        fetch(`http://localhost:5000/user/${number}`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.email) {
+                    navigate('/');
+                }
+                else {
+                    navigate('/signup');
+                }
+            })
+
+        // if (userData.name) {
+        //     navigate('/');
+        // }
+        // else {
+        //     navigate('/signup');
+        // }
 
     }
 
@@ -82,10 +99,7 @@ const Login = () => {
                             value={number}
                             onChange={setNumber} required />
                         <div id="recaptcha-container"></div>
-                        {/* <input onBlur={getEmail} className='w-full h-14 bg-gray-100 px-3 py-2 mb-3 rounded-lg focus:outline-none' type="email" placeholder='Your Email' name="email" requried />
-                        <input onBlur={getPassword} className='w-full h-14 bg-gray-100 px-3 py-2 mb-3 rounded-lg focus:outline-none' type="password" placeholder='Your Password' name="password" required /> */}
 
-                        {/* {signInError} */}
 
                         <button type='submit' className='w-full h-12 bg-[#534292] hover:bg-[#4e37a1] rounded-lg text-[#fafafa] text-lg font-medium tracking-wide'>Log In</button>
                         <hr className='mt-10 mb-5 bg-black' />
