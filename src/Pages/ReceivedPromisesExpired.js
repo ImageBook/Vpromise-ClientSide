@@ -1,14 +1,15 @@
 import { onAuthStateChanged } from 'firebase/auth';
+import { parse } from 'postcss';
 import React, { useEffect, useState } from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
 import auth from '../firebase.init';
+import ExpiredPromiseCard from './components/ExpiredPromiseCard';
 import ReceivedPromisesCard from './components/ReceivedPromisesCard';
 import Navbar from './Shared/Navbar';
 
-const ReceivedPromises = () => {
-    const [promises, setPromises] = useState([]);
+const ReceivedPromisesExpired = () => {
 
+    const [promises, setPromises] = useState([]);
     const [phone, setPhone] = useState('');
 
     useEffect(() => {
@@ -19,7 +20,6 @@ const ReceivedPromises = () => {
         });
 
     }, []);
-
 
     useEffect(() => {
         fetch(`https://evening-wave-04854.herokuapp.com/received-promises/${phone}`)
@@ -43,7 +43,8 @@ const ReceivedPromises = () => {
 
     today = `${year}-${month}-${day}`;
 
-    const pendingPromises = promises.filter(promise => promise.due_date >= today);
+    const expiredPromises = promises.filter(promise => promise.due_date < today);
+    // console.log('expired', expiredPromises)
 
     return (
         <div>
@@ -52,20 +53,20 @@ const ReceivedPromises = () => {
             <div className='max-w-[1000px] mx-auto'>
                 <div className='w-11/12 sm:w-5/6 md:w-3/5 mx-auto'>
                     <div className='flex items-center justify-around mb-6'>
-                        <Link to='/received-promises/pending' className='text-lg font-medium text-sky-500'>Pending</Link>
+                        <Link to='/received-promises/pending' className='text-lg font-medium'>Pending</Link>
                         <Link to='/received-promises/accepted' className='text-lg font-medium'>Accepted</Link>
                         <Link to='/received-promises/rejected' className='text-lg font-medium'>Rejected</Link>
-                        <Link to='/received-promises/expired' className='text-lg font-medium'>Expired</Link>
+                        <Link to='/received-promises/expired' className='text-lg font-medium text-sky-500'>Expired</Link>
                     </div>
                 </div>
             </div>
             <div className='max-w-[1000px] mx-auto'>
                 <div className='flex flex-col items-center justify-center gap-y-14 mb-20'>
                     {
-                        pendingPromises.length === 0 && <p>You don't have any pending promises</p>
+                        expiredPromises.length === 0 && <p>You don't have any expired promises</p>
                     }
                     {
-                        [...pendingPromises].reverse().map(promise => <ReceivedPromisesCard key={promise._id} promise={promise} ></ReceivedPromisesCard>)
+                        [...expiredPromises].reverse().map(promise => <ExpiredPromiseCard key={promise._id} promise={promise} ></ExpiredPromiseCard>)
                     }
                 </div>
             </div>
@@ -73,4 +74,4 @@ const ReceivedPromises = () => {
     );
 };
 
-export default ReceivedPromises;
+export default ReceivedPromisesExpired;

@@ -9,9 +9,6 @@ import Navbar from './Shared/Navbar';
 const ReceivedPromiseAccepted = () => {
     const [promises, setPromises] = useState([]);
     const [userData, setUserData] = useState({});
-    // const [user] = useAuthState(auth);
-    // const email = user?.email;
-    // const phone = userData.phone;
 
     const [phone, setPhone] = useState('');
 
@@ -44,6 +41,7 @@ const ReceivedPromiseAccepted = () => {
                         <Link to='/received-promises/pending' className='text-lg font-medium'>Pending</Link>
                         <Link to='/received-promises/accepted' className='text-lg font-medium text-sky-500'>Accepted</Link>
                         <Link to='/received-promises/rejected' className='text-lg font-medium'>Rejected</Link>
+                        <Link to='/received-promises/expired' className='text-lg font-medium'>Expired</Link>
                     </div>
                 </div>
             </div>

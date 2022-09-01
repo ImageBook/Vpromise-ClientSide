@@ -95,6 +95,8 @@ const ReceivedPromisesCard = ({ promise }) => {
             })
     }
 
+    
+
     return (
 
 
