@@ -41,6 +41,7 @@ const ReceivedPromiseRejected = () => {
                         <Link to='/received-promises/pending' className='text-lg font-medium'>Pending</Link>
                         <Link to='/received-promises/accepted' className='text-lg font-medium '>Accepted</Link>
                         <Link to='/received-promises/rejected' className='text-lg font-medium text-sky-500'>Rejected</Link>
+                        <Link to='/received-promises/expired' className='text-lg font-medium'>Expired</Link>
                     </div>
                 </div>
             </div>

@@ -18,6 +18,7 @@ import ScrollToTop from './Pages/components/ScrollToTop'
 import CheckUser from './Pages/components/CheckUser';
 import ProfessionalPromise from './Pages/ProfessionalPromise';
 import FinancialPromise from './Pages/FinancialPromise';
+import ReceivedPromisesExpired from './Pages/ReceivedPromisesExpired';
 
 function App() {
 
@@ -39,6 +40,7 @@ function App() {
           <Route path='/received-promises/pending' element={<ReceivedPromises></ReceivedPromises>}></Route>
           <Route path='/received-promises/accepted' element={<ReceivedPromiseAccepted></ReceivedPromiseAccepted>}></Route>
           <Route path='/received-promises/rejected' element={<ReceivedPromiseRejected></ReceivedPromiseRejected>}></Route>
+          <Route path='/received-promises/expired' element={<ReceivedPromisesExpired></ReceivedPromisesExpired>}></Route>
         </Routes>
       </ScrollToTop>
       <ToastContainer></ToastContainer>
