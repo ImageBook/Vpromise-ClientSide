@@ -63,7 +63,7 @@ const Navbar = () => {
                 </div>
                 <div className='md:hidden'>
                     <div className='w-11/12 mx-auto space-y-2'>
-                        <Link className='text-xl font-bold text-[#8A6AAE] hover:text-[#6e4f91] text-center' to='/home'>
+                        <Link className='text-xl font-bold text-[#8A6AAE] hover:text-[#6e4f91] text-center' to='/'>
                             <p>Vpromise</p>
                         </Link>
                         <div className='flex items-center justify-around'>

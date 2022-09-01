@@ -24,34 +24,7 @@ const Login = () => {
         }
     },[])
 
-    // const [
-    //     signInWithEmailAndPassword,
-    //     user,
-    //     loading,
-    //     error,
-    // ] = useSignInWithEmailAndPassword(auth);
-
-    // const getEmail = event => {
-    //     setEmail(event.target.value);
-    // }
-    // const getPassword = event => {
-    //     setPassword(event.target.value);
-    // }
-
-    // if (user) {
-    //     navigate('/home');
-    // }
-    // if (loading) {
-    //     return <>
-    //         <div className='mt-20'>
-    //         </div>
-    //         <Spinner></Spinner>
-    //     </>
-    // }
-    // let signInError;
-    // if (error) {
-    //     signInError = <p className='text-red-500 font-medium text-center'>{error?.message}</p>
-    // }
+    
 
     const setUpRecaptcha = (number) => {
         const recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {}, auth);
