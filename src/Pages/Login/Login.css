@@ -2,3 +2,10 @@
     background-image: linear-gradient(to bottom, #654a86, #534292);
     background-color: #534292;
 }
+.PhoneInputInput{
+    background-color: #F3F4F6;
+}
+.PhoneInputInput:focus{
+    background-color: #F3F4F6;
+    outline: none;
+}

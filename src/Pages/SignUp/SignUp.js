@@ -103,7 +103,7 @@ const SignUp = () => {
             .then(data => {
                 console.log('login data', data);
             })
-        navigate('/home');
+        navigate('/');
     }
 
     const onSubmit = async data => {

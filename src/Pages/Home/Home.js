@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '../Shared/Navbar';
 import { Link, useNavigate } from 'react-router-dom';
 import { MdPersonalInjury } from 'react-icons/md';
@@ -13,12 +13,18 @@ import { onAuthStateChanged } from 'firebase/auth';
 const Home = () => {
     const navigate = useNavigate();
     const [name, setName] = useState('');
+
+    useEffect(()=>{
+        const userLoggedInCheck =  localStorage.getItem('isLoggedIn')
+        if(userLoggedInCheck!='1'){
+            navigate('/login')
+        }
+    },[])
+
     onAuthStateChanged(auth, (user) => {
         if (user) {
             // console.log('user', user);
             setName(user.phoneNumber);
-        } else {
-            navigate('/');
         }
     });
 

@@ -19,7 +19,7 @@ const Navbar = () => {
                 setPhone(user.phoneNumber);
                 setCheck(true);
             } else {
-                navigate('/');
+                navigate('/login');
             }
         });
     }, [])
@@ -32,7 +32,8 @@ const Navbar = () => {
 
     const doSignOut = () => {
         signOut(auth);
-        navigate('/');
+        localStorage.removeItem('isLoggedIn');
+        navigate('/login');
     }
 
     const updateProfile = () => {
@@ -45,7 +46,7 @@ const Navbar = () => {
                 <div className='w-11/12 xl:w-full mx-auto hidden md:block'>
                     <div className='flex flex-row items-center justify-between space-y-2 md:space-y-0'>
                         <div>
-                            <Link className='text-2xl font-bold text-[#8A6AAE] hover:text-[#6e4f91]' to='/home'>Vpromise</Link>
+                            <Link className='text-2xl font-bold text-[#8A6AAE] hover:text-[#6e4f91]' to='/'>Vpromise</Link>
                         </div>
                         <div className='flex items-center space-x-6'>
                             <div className='flex flex-col items-end'>

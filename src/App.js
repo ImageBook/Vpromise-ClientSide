@@ -25,10 +25,10 @@ function App() {
     <div className='font'>
       <ScrollToTop>
         <Routes>
-          <Route path='/' element={<Login></Login>}></Route>
+          <Route path='/' element={<Home></Home>}></Route>
           <Route path='/signup' element={<SignUp></SignUp>}></Route>
           <Route path='/verify' element={<OtpPage></OtpPage>}></Route>
-          <Route path='/home' element={<Home></Home>}></Route>
+          <Route path='/login' element={<Login></Login>}></Route>
           <Route path='/update-profile' element={<UpdateProfile></UpdateProfile>}></Route>
           <Route path='/personal-promise' element={<PersonalPromise></PersonalPromise>}></Route>
           <Route path='/professional-promise' element={<ProfessionalPromise></ProfessionalPromise>}></Route>

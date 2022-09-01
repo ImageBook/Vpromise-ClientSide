@@ -18,12 +18,11 @@ const Login = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                navigate('/home');
-            }
-        });
-    })
+        const userLoggedInCheck = localStorage.getItem('isLoggedIn');
+        if(userLoggedInCheck==='1'){
+            navigate('/');
+        }
+    },[])
 
     // const [
     //     signInWithEmailAndPassword,
@@ -77,7 +76,10 @@ const Login = () => {
             .then(data => {
                 console.log('login data', data);
             })
-        navigate('/home');
+            localStorage.setItem('isLoggedIn','1');
+        navigate('/');
+
+
     }
 
     const handleSubmit = async (event) => {
