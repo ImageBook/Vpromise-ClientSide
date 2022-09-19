@@ -50,10 +50,10 @@ const PersonalPromiseInfo = () => {
         // const blob = new Blob([visual], { type: "video/mp4" });
         // console.log(myFile);
         formData.append('file', myFile);
-        formData.append("upload_preset", "yfhzkfb5");
+        formData.append("upload_preset", "kghszgfx");
 
 
-        axios.post("https://api.cloudinary.com/v1_1/dtflws28q/video/upload", formData).then((response) => {
+        axios.post("https://api.cloudinary.com/v1_1/dewunyk7d/video/upload", formData).then((response) => {
             console.log('url', response.data.secure_url);
             console.log(response)
             if (response.status === 200) {
